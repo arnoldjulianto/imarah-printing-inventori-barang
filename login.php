@@ -102,7 +102,7 @@
 		if ($ketemu >=1) {
 			session_start();
 			$_SESSION['id'] =$data['id'];
-			header("location:index.php");
+			header("location:index.php?page=home");
 		}
 		else {
 			echo '<center><div class="alert alert-danger">Upss...!!! Login gagal. Silakan Coba Kembali</div></center>';

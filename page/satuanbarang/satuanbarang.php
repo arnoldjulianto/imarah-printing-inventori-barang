@@ -41,15 +41,15 @@
                                          
 
 											<td>
-											<a href="?page=satuanbarang&aksi=ubahsatuan&id=<?php echo $data['id'] ?>" class="btn btn-success" >Ubah</a>
-											<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=satuanbarang&aksi=hapussatuan&id=<?php echo $data['id'] ?>" class="btn btn-danger" >Hapus</a>
+											<a href="?page=satuanbarang&aksi=tambahsatuanbarang&id=<?php echo $data['id'] ?>" class="btn btn-success" >Ubah</a>
+											<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=satuanbarang&aksi=hapussatuanbarang&id=<?php echo $data['id'] ?>" class="btn btn-danger" >Hapus</a>
 											</td>
                                         </tr>
 									<?php }?>
 
 										   </tbody>
                                 </table>
-								<a href="?page=satuanbarang&aksi=tambahsatuan" class="btn btn-primary" >Tambah Satuan Barang</a>
+								<a href="?page=satuanbarang&aksi=tambahsatuanbarang" class="btn btn-primary" >Tambah Satuan Barang</a>
                   </tbody>
                 </table>
               </div>

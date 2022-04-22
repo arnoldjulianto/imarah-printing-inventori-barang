@@ -10,7 +10,7 @@
  
 	<script type="text/javascript">
 	alert("Data Berhasil Dihapus");
-	window.location.href="?page=satuanbarang";
+	window.location.href="?page=satuanbarang&aksi=";
 	</script>
 	
  <?php

@@ -13,28 +13,21 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
                 <thead>
-                                        <tr>
-											<th>No</th>
-											<th>Id Transaksi</th>
-											<th>Tanggal Masuk</th>
-											<th>Kode Barang</th>
-											<th>Nama Barang</th>
-										
-											<th>Pengirim</th>
-											
-										
-										
-                                            
-											<th>Jumlah Masuk</th>
-											<th>Satuan Barang</th>
-											<th>Pengaturan</th>
-                                         
-                                        </tr>
-										</thead>
-										
-               
+					<tr>
+						<th>No</th>
+						<th>Id Transaksi</th>
+						<th>Tanggal Masuk</th>
+						<th>Kode Barang</th>
+						<th>Nama Barang</th>
+						<th>Pengirim</th>
+						<th>Jumlah Masuk</th>
+						<th>Satuan Barang</th>
+						<th>Pengaturan</th>
+						
+					</tr>
+					</thead>
                   <tbody>
                     <?php 
 									
@@ -50,18 +43,12 @@
 											<td><?php echo $data['tanggal'] ?></td>
 											<td><?php echo $data['kode_barang'] ?></td>
 											<td><?php echo $data['nama_barang'] ?></td>
-											
 											<td><?php echo $data['pengirim'] ?></td>
-									
-                                         
 											<td><?php echo $data['jumlah'] ?></td>
 											<td><?php echo $data['satuan'] ?></td>
-											
-								
-
-											<td>
-											
-											<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=barangmasuk&aksi=hapusbarangmasuk&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-danger" >Hapus</a>
+											<td width=150>
+												<a href="?page=barangmasuk&aksi=tambahbarangmasuk&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</a>
+												<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=barangmasuk&aksi=hapusbarangmasuk&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-danger btn-sm" ><i class="fa fa-trash"></i> Hapus</a>
 											</td>
                                         </tr>
 									<?php }?>

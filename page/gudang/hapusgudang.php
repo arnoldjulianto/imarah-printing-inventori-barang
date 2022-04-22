@@ -10,7 +10,7 @@
  
 	<script type="text/javascript">
 	alert("Data Berhasil Dihapus");
-	window.location.href="?page=gudang";
+	window.location.href="?page=gudang&aksi=";
 	</script>
 	
  <?php

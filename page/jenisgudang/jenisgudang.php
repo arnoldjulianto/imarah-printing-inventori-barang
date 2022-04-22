@@ -9,7 +9,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Jenis Barang</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Jenis Gudang</h6>
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -17,10 +17,8 @@
       <thead>
                               <tr>
                                   <th>No</th>
-                                  <th>Jenis Barang</th>
-                                  
+                                  <th>Nama Gudang</th>
                                   <th>Pengaturan</th>
-                               
                               </tr>
                               </thead>
                               
@@ -29,27 +27,24 @@
           <?php 
                           
                           $no = 1;
-                          $sql = $koneksi->query("select * from jenis_barang");
+                          $sql = $koneksi->query("select * from jenis_gudang");
                           while ($data = $sql->fetch_assoc()) {
                               
                           ?>
                           
                               <tr>
                                   <td><?php echo $no++; ?></td>
-                                  <td><?php echo $data['jenis_barang'] ?></td>
-                                  
-                               
-
+                                  <td><?php echo $data['jenis_gudang'] ?></td>
                                   <td>
-                                  <a href="?page=supplier&aksi=ubahsupplier&id=<?php echo $data['jenis_barang'] ?>" class="btn btn-success" >Ubah</a>
-                                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=supplier&aksi=hapussupplier&id=<?php echo $data['kode_supplier'] ?>" class="btn btn-danger" >Hapus</a>
+                                  <a href="?page=jenisgudang&aksi=tambah&id=<?php echo $data['id'] ?>" class="btn btn-success" >Ubah</a>
+                                  <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=jenisgudang&aksi=hapus&id=<?php echo $data['id'] ?>" class="btn btn-danger" >Hapus</a>
                                   </td>
                               </tr>
                           <?php }?>
 
                                  </tbody>
                       </table>
-                      <a href="?page=jenisbarang&aksi=tambahjenis" class="btn btn-primary" >Tambah Jenis Barang</a>
+                      <a href="?page=jenisgudang&aksi=tambah" class="btn btn-primary" >Tambah Gudang</a>
         </tbody>
       </table>
     </div>

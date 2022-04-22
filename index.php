@@ -35,7 +35,8 @@ if(empty($_SESSION['id'])){
   
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
- 
+  
+  <script src="vendor/jquery/jquery.min.js"></script>
 
 </head>
 
@@ -172,7 +173,7 @@ if(empty($_SESSION['id'])){
             <!-- looping submenu, siapkan subemenu sesuai menu-->
             <?php
             $menuId = $m['id_menu'];
-            $querySubMenu1 = $koneksi->query("SELECT * FROM user_sub_menu_1, user_menu, user_access_sub_menu_1 WHERE user_sub_menu_1.id_menu = user_menu.id_menu and user_menu.id_menu = '$menuId' and user_sub_menu_1.id_sub_menu_1 = user_access_sub_menu_1.id_sub_menu_1 and user_access_sub_menu_1.level = '$level'");
+            $querySubMenu1 = $koneksi->query("SELECT * FROM user_sub_menu_1, user_menu, user_access_sub_menu_1 WHERE user_sub_menu_1.id_menu = user_menu.id_menu and user_menu.id_menu = '$menuId' and user_sub_menu_1.id_sub_menu_1 = user_access_sub_menu_1.id_sub_menu_1 and user_access_sub_menu_1.level = '$level' order by urutan_sub_menu_1 asc ");
             if($querySubMenu1->num_rows > 0) {
             ?>
                   <div id="collapseTwo<?= $i; ?>" <?php echo $collapse_show ?> class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -322,7 +323,6 @@ if(empty($_SESSION['id'])){
   <!-- Logout Modal-->
 
  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -340,7 +340,24 @@ if(empty($_SESSION['id'])){
   
     <!--script for this page-->
 <script>
+
 jQuery(document).ready(function($) {
+   $('#cmb_jenis_gudang').change(function() { // Jika Select Box id provinsi dipilih
+     $('.kode_barang_area').html('');
+     var tamp = $(this).val(); // Ciptakan variabel provinsi
+     $.ajax({
+        type: 'POST', // Metode pengiriman data menggunakan POST
+        url: 'page/barangmasuk/get_jenis_barang.php', // File yang akan memproses data
+        data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
+        success: function(data) { // Jika berhasil
+            $('.kode_barang_area').html(data); // Berikan hasil ke id kota
+        }
+    });
+  });
+});
+
+jQuery(document).ready(function($) {
+  $('.tampung').html('')
    $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
      var tamp = $(this).val(); // Ciptakan variabel provinsi
      $.ajax({
@@ -353,51 +370,11 @@ jQuery(document).ready(function($) {
            
      
     });
+  });
 });
-});
-</script>	
 
-
-<!-- CONTOH -->
-<script>
 jQuery(document).ready(function($) {
-   $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
-     var tampp = $(this).val(); // Ciptakan variabel provinsi
-     $.ajax({
-            type: 'POST', // Metode pengiriman data menggunakan POST
-          url: 'page/barangmasukimprint/get_barang.php', // File yang akan memproses data
-         data: 'tamp=' + tampp, // Data yang akan dikirim ke file pemroses
-         success: function(data) { // Jika berhasil
-              $('.tampungimprint').html(data); // Berikan hasil ke id kota
-            }
-           
-     
-    });
-});
-});
-</script>
-<script>
-jQuery(document).ready(function($) {
-   $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
-     var tampp = $(this).val(); // Ciptakan variabel provinsi
-     $.ajax({
-            type: 'POST', // Metode pengiriman data menggunakan POST
-          url: 'page/barangmasukimprint/get_satuan.php', // File yang akan memproses data
-         data: 'tamp=' + tampp, // Data yang akan dikirim ke file pemroses
-         success: function(data) { // Jika berhasil
-              $('.tampungimprint1').html(data); // Berikan hasil ke id kota
-            }
-           
-     
-    });
-});
-});
-</script> 
-
-
-
-<script>
-jQuery(document).ready(function($) {
+  $('.tampung1').html('');
    $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
      var tamp = $(this).val(); // Ciptakan variabel provinsi
      $.ajax({
@@ -412,10 +389,8 @@ jQuery(document).ready(function($) {
     });
 });
 });
-</script> 
 
-<script type="text/javascript">
-    jQuery(document).ready(function($){
+jQuery(document).ready(function($){
         $(function(){
     $('#Myform1').submit(function() {
         $.ajax({
@@ -434,11 +409,8 @@ jQuery(document).ready(function($) {
         });
     });
 });
-</script>
 
-
- <script type="text/javascript">
-    jQuery(document).ready(function($){
+  jQuery(document).ready(function($){
         $(function(){
     $('#Myform2').submit(function() {
         $.ajax({
@@ -458,12 +430,6 @@ jQuery(document).ready(function($) {
     });
 });
 </script>
-
-  
-
-
-  
-
 </body>
 
 </html>
