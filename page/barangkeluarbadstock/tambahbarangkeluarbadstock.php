@@ -1,32 +1,23 @@
   
-<script>
- function sum() {
-	 var stok = document.getElementById('stok').value;
-	 var jumlahmasuk = document.getElementById('jumlahmasuk').value;
-	 var result = parseInt(stok) + parseInt(jumlahmasuk);
-	 if (!isNaN(result)) {
-		 document.getElementById('jumlah').value = result;
-	 }
-	 else document.getElementById('jumlah').value = 0;
- }
- </script>
+
   
 <?php 
-$get_id_transaksi = $_GET['id_transaksi'];
-$koneksi = new mysqli("localhost","root","","inventori");
+$get_id_transaksi = $_GET['id_transaksi']; 
 $format = "";
 $jenis_gudang = "";
-$tanggal_masuk = $tanggal_masuk = date("Y-m-d");
+$nomor_spk = "";
+$tanggal_keluar = $tanggal_keluar = date("Y-m-d");
 $kode_barang = "";
 $nama_barang = "";
-$pengirim = "";
+$tujuan = "";
 $jumlah = "";
 $satuan = "";
+$tanggal_keluar = date("Y-m-d");
 if(!ISSET($get_id_transaksi)){
-	$no = mysqli_query($koneksi, "select id_transaksi from barang_masuk order by id_transaksi desc");
+	$koneksi = new mysqli("localhost","root","","inventori");
+	$no = mysqli_query($koneksi, "select id_transaksi from barang_keluar_badstock order by id_transaksi desc");
 	$idtran = mysqli_fetch_array($no);
 	$kode = $idtran['id_transaksi'];
-
 
 	$urut = substr($kode, 8, 3);
 	$tambah = (int) $urut + 1;
@@ -34,47 +25,75 @@ if(!ISSET($get_id_transaksi)){
 	$tahun = date("y");
 
 	if(strlen($tambah) == 1){
-		$format = "TRM-".$bulan.$tahun."00".$tambah;
+		$format = "TRKBS-".$bulan.$tahun."00".$tambah;
 	} else if(strlen($tambah) == 2){
-		$format = "TRM-".$bulan.$tahun."0".$tambah;
+		$format = "TRKBS-".$bulan.$tahun."0".$tambah;
 		
 	} else{
-		$format = "TRM-".$bulan.$tahun.$tambah;
+		$format = "TRKBS-".$bulan.$tahun.$tambah;
 
 	}
 }
 else{
-	$sql = mysqli_query($koneksi, "select * from barang_masuk where id_transaksi = '$get_id_transaksi'");
+	$sql = mysqli_query($koneksi, "select * from barang_keluar_badstock where id_transaksi = '$get_id_transaksi'");
 	$data = mysqli_fetch_assoc($sql);
 	$format = $get_id_transaksi;
 	$jenis_gudang = $data['jenis_gudang'];
-	$tanggal_masuk = $data['tanggal'];
+	$nomor_spk = $data['nomor_spk'];
+	$tanggal_keluar = $data['tanggal'];
 	$kode_barang = $data['kode_barang'];
 	$nama_barang = $data['nama_barang'];
-	$pengirim = $data['pengirim'];
+	$tujuan = $data['tujuan'];
 	$jumlah = $data['jumlah'];
 	$satuan = $data['satuan'];
 }
 
+
+
 ?>
-  
+<script>
+ function sum() {
+	 var stok = document.getElementById('stok').value;
+	 var jumlahkeluar = document.getElementById('jumlahkeluar').value;
+	 var result = 0;
+	 if(jumlahkeluar > 0) result = parseInt(stok) - parseInt(jumlahkeluar);
+	 else if (jumlahkeluar == 0) result = parseInt(stok) + parseInt(jumlahkeluar);
+	 else if (jumlahkeluar < 0) {
+		 alert("Jumlah Tidak Boleh Kurang Dari 0");
+		 document.getElementById('jumlahkeluar').value = 0;
+		 result = 0;
+	 }
+	 
+	 if(result < 0) {
+		 alert("Jumlah Maks. Yang Diizinkan Adalah "+stok);
+		 document.getElementById('jumlahkeluar').value = stok;
+		 result = 0;
+	 }
+	 if (!isNaN(result)) {
+		 document.getElementById('total').value = result;
+	 }
+ }
+ </script>
   <div class="container-fluid">
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary"><?php if(ISSET($get_id_transaksi)) echo 'Ubah'; else echo 'Tambah' ?> Barang Masuk</h6>
+              <h6 class="m-0 font-weight-bold text-primary"><?php if(ISSET($get_id_transaksi)) echo 'Ubah'; else echo 'Tambah' ?> Barang Keluar</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
+							
+							
 							<div class="body">
+							
 							<form method="POST" enctype="multipart/form-data">
 							
 							<label for="">Id Transaksi</label>
                             <div class="form-group">
                                <div class="form-line">
-                                 <input type="text" name="id_transaksi" class="form-control" id="id_transaksi" value="<?php echo $format; ?>" readonly /> 
-								</div>
+                                <input type="text" name="id_transaksi" class="form-control" id="id_transaksi" value="<?php echo $format; ?>" readonly />  
+							</div>
                             </div>
 
 							<label for="">Gudang</label>
@@ -93,52 +112,47 @@ else{
 								</div>
                             </div>
 
-							<label for="">Tanggal Masuk</label>
+
+							<label for="">Nomor SPK</label>
                             <div class="form-group">
                                <div class="form-line">
-                                 <input type="date" name="tanggal_masuk" class="form-control" id="tanggal_masuk" value="<?php echo $tanggal_masuk; ?>" />
+                                <input type="hidden" name="nomor_spk" class="form-control" value="<?=$nomor_spk?>" />	 
 							</div>
                             </div>
 							
+							<label for="">Tanggal Keluar</label>
+                            <div class="form-group">
+                               <div class="form-line">
+                                 <input type="date" name="tanggal_keluar" class="form-control" id="tanggal_kelauar" value="<?php echo $tanggal_keluar; ?>" />
+							</div>
+                            </div>
+							
+					
 							<div class="kode_barang_area"></div>
-
 							<div class="tampung"></div>
 					
 							<label for="">Jumlah</label>
                             <div class="form-group">
                                <div class="form-line">
-                                <input type="number" name="jumlahmasuk" id="jumlahmasuk" oninput="sum()" class="form-control" value="<?=$jumlah?>" />
-                                     
-									 
+                                <input type="number" name="jumlahkeluar" id="jumlahkeluar" onkeyup="sum()" class="form-control"  required value="<?=$jumlah?>" />	 
 							</div>
                             </div>
 							
-							<label for="jumlah">Total Stok</label>
+							<label for="total">Total Stok</label>
                             <div class="form-group">
                                <div class="form-line">
-                               <input readonly="readonly" name="jumlah" id="jumlah" type="number" class="form-control">
+                               <input readonly="readonly" name="total" id="total" type="number" class="form-control">
+                            
+
 							</div>
                             </div>
 							
 							<div class="tampung1"></div>
-								<label for="">Supplier</label>
+							
+							<label for="">Tujuan</label>
                             <div class="form-group">
                                <div class="form-line">
-                                <select name="pengirim" class="form-control" >
-								<option value="">-- Pilih Supplier  --</option>
-								<?php
-								
-								$sql = $koneksi -> query("select * from tb_supplier order by nama_supplier");
-								while ($data=$sql->fetch_assoc()) {
-									$selected = "";
-									if($pengirim == $data[nama_supplier] ) $selected = "selected";
-								echo "<option value='$data[nama_supplier]' $selected >$data[nama_supplier]</option>";
-								}
-								?>
-								
-								</select>
-                                     
-									 
+                                <input type="text" name="tujuan" class="form-control" value="<?=$tujuan?>" required/>	 
 							</div>
                             </div>
 						
@@ -150,41 +164,37 @@ else{
 							
 							
 							
-							<?php
-							
+<?php
 if (isset($_POST['simpan'])) {
 	$id_transaksi= $_POST['id_transaksi'];
 	$jenis_gudang= $_POST['jenis_gudang'];
-	$tanggal= $_POST['tanggal_masuk'];
+	$nomor_spk= $_POST['nomor_spk'];
+	$tanggal= $_POST['tanggal_keluar'];
 	$barang= $_POST['barang'];
 	$pecah_barang = explode(".", $barang);
 	$kode_barang = $pecah_barang[0];
 	$nama_barang = $pecah_barang[1];
-	$jumlah= $_POST['jumlahmasuk'];
-	$pengirim= $_POST['pengirim'];
-	$pecah_nama = explode($nama_supplier);
-	$nama_supplier = $pecah_nama[0];
-	$satuan = $_POST['satuan'];
+	$jumlah= $_POST['jumlahkeluar'];
+	$satuan= $_POST['satuan'];
+	$tujuan= $_POST['tujuan'];
+	$total= $_POST['total'];
 	if(!ISSET($get_id_transaksi)){
-		$sql = $koneksi->query("insert into barang_masuk (id_transaksi, jenis_gudang, tanggal, kode_barang, nama_barang, jumlah, satuan, pengirim) values('$id_transaksi','$jenis_gudang','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$pengirim')");
-			if ($sql) {
-			?>
+		$sql = $koneksi->query("insert into barang_keluar_badstock (id_transaksi, nomor_spk
+		, jenis_gudang, tanggal, kode_barang, nama_barang, jumlah, satuan, tujuan) values('$id_transaksi', '$nomor_spk', '$jenis_gudang','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$tujuan')");
+		if($sql ) {?>
 			<script type="text/javascript">
 				alert("Simpan Data Berhasil");
-				window.location.href="?page=barangmasuk&aksi=";
-				
-				</script>
-				<?php
+				window.location.href="?page=barangkeluarbadstock&aksi=";	
+			</script>
+<?php
 		}
 	}
-	else {
-		$sql = $koneksi->query("update barang_masuk set jenis_gudang = '$jenis_gudang', tanggal = '$tanggal', kode_barang = '$kode_barang', nama_barang = '$nama_barang', jumlah = $jumlah, satuan = '$satuan' , pengirim = '$pengirim' ");
-		if ($sql) {
-		?>
+	else{
+		$sql = $koneksi->query("update barang_keluar_badstock set nomor_spk = '$nomor_spk', nomor_spk = '$jenis_gudang', tanggal = '$tanggal',kode_barang = '$kode_barang',nama_barang = '$nama_barang', jumlah = '$jumlah',satuan = '$satuan',tujuan = '$tujuan' where id_transaksi = '$id_transaksi' ");
+		if($sql ) {?>
 			<script type="text/javascript">
 			alert("Simpan Data Berhasil");
-			window.location.href="?page=barangmasuk&aksi=";
-			
+			window.location.href="?page=barangkeluarbadstock&aksi=";	
 			</script>
 <?php
 		}
@@ -198,7 +208,7 @@ jQuery(document).ready(function($) {
   var jenis_gudang = $('#cmb_jenis_gudang').val(); // Ciptakan variabel provinsi
   var kode_barang = "<?php if(ISSET($kode_barang)) echo $kode_barang?>";  // Ciptakan variabel provinsi
   	$.ajax({
-        type: 'POST', // Metode pengiriman data menggunakan POST
+        type: 'POST', // Metode tujuanan data menggunakan POST
         url: 'page/ajax/get_jenis_barang.php', // File yang akan memproses data
         data: 'jenis_gudang=' + jenis_gudang+'&kode_barang=' + kode_barang, // Data yang akan dikirim ke file pemroses
         success: function(data) { // Jika berhasil
@@ -206,19 +216,7 @@ jQuery(document).ready(function($) {
         }
     });
 });
-</script>	
-										
-								
-										
-										
-								
-										
-								
-								
-								
-							
-									
-							
+</script>								
 								
 								
 								

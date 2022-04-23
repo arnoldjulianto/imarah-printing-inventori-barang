@@ -27,7 +27,7 @@ $kode_barang =$_POST['kode_barang'];
     </div>
  <?php
     } else {
-       echo "0 results";
+       //echo "0 results";
     }
 
      mysqli_close($koneksi);
@@ -36,13 +36,12 @@ $kode_barang =$_POST['kode_barang'];
 
 <script>
 jQuery(document).ready(function($) {
-  
   $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
      $('.tampung').html('');
      var tamp = $(this).val(); // Ciptakan variabel provinsi
      $.ajax({
         type: 'POST', // Metode pengiriman data menggunakan POST
-        url: 'page/barangmasuk/get_barang.php', // File yang akan memproses data
+        url: 'page/ajax/get_barang.php', // File yang akan memproses data
         data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
         success: function(data) { // Jika berhasil
             $('.tampung').html(data); // Berikan hasil ke id kota
@@ -56,16 +55,38 @@ jQuery(document).ready(function($) {
      $('.tampung1').html('');
      var tamp = $(this).val(); // Ciptakan variabel provinsi
      $.ajax({
-            type: 'POST', // Metode pengiriman data menggunakan POST
-          url: 'page/barangmasuk/get_satuan.php', // File yang akan memproses data
-         data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-         success: function(data) { // Jika berhasil
+        type: 'POST', // Metode pengiriman data menggunakan POST
+        url: 'page/ajax/get_satuan.php', // File yang akan memproses data
+        data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
+        success: function(data) { // Jika berhasil
               $('.tampung1').html(data); // Berikan hasil ke id kota
-            }
-           
-     
+        }
     });
 });
+});
+
+jQuery(document).ready(function($) {
+  $('.tampung').html('');
+    var tamp = $('#cmb_barang').val(); // Ciptakan variabel provinsi
+     $.ajax({
+        type: 'POST', // Metode pengiriman data menggunakan POST
+        url: 'page/ajax/get_barang.php', // File yang akan memproses data
+        data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
+        success: function(data) { // Jika berhasil
+            $('.tampung').html(data); // Berikan hasil ke id kota
+        }
+    });
+    
+     $('.tampung1').html('');
+     var tamp = $('#cmb_barang').val(); // Ciptakan variabel provinsi
+     $.ajax({
+        type: 'POST', // Metode pengiriman data menggunakan POST
+        url: 'page/ajax/get_satuan.php', // File yang akan memproses data
+        data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
+        success: function(data) { // Jika berhasil
+            $('.tampung1').html(data); // Berikan hasil ke id kota
+        }
+    });
 });
 </script>
 							

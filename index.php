@@ -138,7 +138,7 @@ if(empty($_SESSION['id'])){
         $aksi = $_GET['aksi']; 
         if(!isset($aksi)) $aksi = '';
         $level = $data['level'];
-        $queryMenu =  $koneksi->query("SELECT * from user_menu, user_access_menu WHERE user_menu.id_menu = user_access_menu.id_menu and level = '$level' and user_menu.id_menu <> 1 order by urutan_menu asc ");
+        $queryMenu =  $koneksi->query("SELECT * from user_menu, user_access_menu WHERE user_menu.id_menu = user_access_menu.id_menu and level = '$level' and (user_menu.id_menu <> 1 and user_menu.id_menu <> 5) order by urutan_menu asc ");
           $i = 1;
           while ($m = $queryMenu->fetch_assoc()) {
               $menu = $m['id_menu'];
@@ -206,26 +206,70 @@ if(empty($_SESSION['id'])){
         Laporan
       </div>
 
-	    <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLaporan" aria-expanded="true" aria-controls="collapseLaporan">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Laporan</span>
-        </a>
-        <div id="collapseLaporan" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Menu Laporan:</h6>
-            <a class="collapse-item" href="?page=laporan_supplier">Supplier</a>
-            <a class="collapse-item" href="?page=laporan_gudang">Stok Gudang Impro</a>
-            <a class="collapse-item" href="?page=laporan_gudangimprint">Stok Gudang Imprint</a>
-            <a class="collapse-item" href="?page=laporan_barangmasuk">Barang Masuk Impro</a>
-            <a class="collapse-item" href="?page=laporan_barangmasukimprint">Barang Masuk Imprint</a>
-            <a class="collapse-item" href="?page=laporan_barangkeluar">Barang Keluar Impro</a>
-            <a class="collapse-item" href="?page=laporan_barangkeluarimprint">Barang Keluar Imprint</a>             
-            <a class="collapse-item" href="?page=laporan_badstockimpro">Bad Stock Impro</a>
-            <a class="collapse-item" href="?page=laporan_badstockimprint">Bad Stock Imprint</a>
-          </div>
-        </div>
+	    <?php
+        $page = $_GET['page'];
+        $aksi = $_GET['aksi'];
+        $pecah_page = explode("_", $page);
+        if(!isset($aksi)) $aksi = '';
+        $level = $data['level'];
+        $queryMenu =  $koneksi->query("SELECT * from user_menu, user_access_menu WHERE user_menu.id_menu = user_access_menu.id_menu and level = '$level' and user_menu.id_menu = 5 order by urutan_menu asc ");
+          $i = 1;
+          while ($m = $queryMenu->fetch_assoc()) {
+              $menu = $m['id_menu'];
+
+              if ($m['url'] == '') {
+                  $target = 'href="#"  data-toggle="collapse" aria-expanded="true" aria-controls="collapseTwo'.$i.'"  ';
+                  $collapsed = "collapsed";
+              } else {
+                  $target = 'href="' .$m['url']. '"  ';
+                  $collapsed = "";
+              }
+              $queryCekURLMenu = $koneksi->query("SELECT * from user_menu where url = '?page=$page&aksi=$aksi' and user_menu.id_menu = '$menu'");
+              $CekURLMenu = $queryCekURLMenu->num_rows;
+
+              $queryCekURLSubMenu = $koneksi->query("SELECT * from user_menu, user_sub_menu_1 where url_sub_menu_1 = '?page=$page&aksi=$aksi' and user_menu.id_menu = '$menu' and user_menu.id_menu = user_sub_menu_1.id_menu order by urutan_sub_menu_1 asc ");
+              $CekURLSubMenu = $queryCekURLSubMenu->num_rows;
+              if ($CekURLSubMenu > 0 || $CekURLMenu > 0 ) {
+                  echo '<li class="nav-item active">';
+                  $collapse_show = 'class = "collapse show"';
+                  $collapsed = "";
+              } 
+              else {
+                  echo '<li class="nav-item">';
+                  $collapse_show = 'class = "collapse" ';
+                  $collapsed = "collapsed";
+              }
+    ?>
+      <!-- Nav Item - Dashboard -->
+          <a class="nav-link  <?=$collapsed?>" <?php echo $target; ?> data-target="#collapseTwo<?= $i ?>">
+                <i class="<?php echo $m['icon_1']?>"></i> 
+                <span><?= $m['menu']; ?></span>
+          </a>
+          <?php
+            $menuId = $m['id_menu'];
+            $querySubMenu1 = $koneksi->query("SELECT * FROM user_sub_menu_1, user_menu, user_access_sub_menu_1 WHERE user_sub_menu_1.id_menu = user_menu.id_menu and user_menu.id_menu = '$menuId' and user_sub_menu_1.id_sub_menu_1 = user_access_sub_menu_1.id_sub_menu_1 and user_access_sub_menu_1.level = '$level' order by urutan_sub_menu_1 asc ");
+            if($querySubMenu1->num_rows > 0) {
+            ?>
+                  <div id="collapseTwo<?= $i; ?>" <?php echo $collapse_show ?> class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                          <h6 class="collapse-header">Menu:</h6>
+                          <?php while ($sm1 = $querySubMenu1->fetch_assoc()) {
+                              $subMenuId = $sm1['id_sub_menu_1'];
+                              $link = '?page='.$page.'&aksi='.$aksi;
+                              ?>
+                                  <?php if ( $link == $sm1['url_sub_menu_1']) : ?>
+                                      <a class="collapse-item active" href="<?= $sm1['url_sub_menu_1']; ?>">
+                                  <?php else : ?>
+                                      <a class="collapse-item" href="<?=$sm1['url_sub_menu_1']; ?>">
+                                  <?php endif; ?>
+                                          <?= $sm1['nama_sub_menu']; ?>
+                                      </a>
+                          <?php } ?>
+                      </div>    
+                  </div>
+      <?php }?>
       </li>
+<?php }?>
 
        
 	  
@@ -282,16 +326,18 @@ if(empty($_SESSION['id'])){
         <div class="container-fluid">
 		
 		 <section class="content">
-	
-	
-		      <?php
+		  <?php
 			   $page = $_GET['page'];
 			   $aksi = $_GET['aksi'];
+         $pecah_page = explode("_", $page);
          if($aksi == "") $aksi = $page;
-         include "page/".$page."/".$aksi.".php";
-			   ?>
-    
-
+         if(ISSET($pecah_page[1]) ) {
+           include "page/".$pecah_page[0]."/".$page.".php"; 
+         }
+         else {
+           include "page/".$page."/".$aksi.".php";
+         }
+			?>
     </section>
 
  
@@ -348,7 +394,7 @@ jQuery(document).ready(function($) {
      var kode_barang = "<?php if(ISSET($kode_barang)) echo $kode_barang?>"; // Ciptakan variabel provinsi
      $.ajax({
         type: 'POST', // Metode pengiriman data menggunakan POST
-        url: 'page/barangmasuk/get_jenis_barang.php', // File yang akan memproses data
+        url: 'page/ajax/get_jenis_barang.php', // File yang akan memproses data
         data: 'jenis_gudang=' + jenis_gudang+'&kode_barang=' + kode_barang, // Data yang akan dikirim ke file pemroses
         success: function(data) { // Jika berhasil
             $('.kode_barang_area').html(data); // Berikan hasil ke id kota
@@ -363,7 +409,7 @@ jQuery(document).ready(function($) {
      var tamp = $(this).val(); // Ciptakan variabel provinsi
      $.ajax({
             type: 'POST', // Metode pengiriman data menggunakan POST
-          url: 'page/barangmasuk/get_barang.php', // File yang akan memproses data
+          url: 'page/ajax/get_barang.php', // File yang akan memproses data
          data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
          success: function(data) { // Jika berhasil
               $('.tampung').html(data); // Berikan hasil ke id kota
@@ -380,7 +426,7 @@ jQuery(document).ready(function($) {
      var tamp = $(this).val(); // Ciptakan variabel provinsi
      $.ajax({
             type: 'POST', // Metode pengiriman data menggunakan POST
-          url: 'page/barangmasuk/get_satuan.php', // File yang akan memproses data
+          url: 'page/ajax/get_satuan.php', // File yang akan memproses data
          data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
          success: function(data) { // Jika berhasil
               $('.tampung1').html(data); // Berikan hasil ke id kota
@@ -392,7 +438,7 @@ jQuery(document).ready(function($) {
 });
 
 jQuery(document).ready(function($){
-        $(function(){
+  $(function(){
     $('#Myform1').submit(function() {
         $.ajax({
             type: 'POST',
@@ -408,11 +454,11 @@ jQuery(document).ready(function($){
         return false;
          e.preventDefault();
         });
-    });
+  });  
 });
 
   jQuery(document).ready(function($){
-        $(function(){
+    $(function(){
     $('#Myform2').submit(function() {
         $.ajax({
             type: 'POST',

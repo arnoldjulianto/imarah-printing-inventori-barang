@@ -13,14 +13,11 @@ $kode_bar = $pecah_bar[0];
                                        
     ?>
 		
-		<label for="stok">Stok</label>
+		<label for="satuan">Satuan</label>
                             <div class="form-group">
                                <div class="form-line">
-                                 <input readonly="readonly" id="stok" type="number" class="form-control" value="<?php echo $row["jumlah"];?>">
-								
-							
-								
-								
+                                 <input readonly="readonly" id="satuan" name="satuan" type="text" class="form-control" value="<?php echo $row["satuan"];?>">
+
 								</input>
                                      
 									 
@@ -29,11 +26,12 @@ $kode_bar = $pecah_bar[0];
  <?php
    		}
     } else {
-       echo "0 results";
+       //echo "0 results";
     }
 
      mysqli_close($koneksi);
  
  ?>
-							
-							
+ 
+ 
+ 

@@ -13,7 +13,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center;font-size:15px">
                 <thead>
                                         <tr>
 											<th>No</th>
@@ -21,11 +21,12 @@
 											<th>Kode Barang</th>
 											<th>Nama Barang</th>											
 											<th>Jenis Barang</th>
-											
-											<th>Jumlah Barang</th>
+											<th>Stok</th>
+											<!-- <th>Jumlah Barang Masuk</th>
+											<th>Jumlah Barang Keluar</th>
+											<th>Sisa Stok</th> -->
 											<th>Satuan</th>
 											<th>Pengaturan</th>
-                                         
                                         </tr>
 										</thead>
 										
@@ -36,7 +37,10 @@
 									$no = 1;
 									$sql = $koneksi->query("select * from gudang");
 									while ($data = $sql->fetch_assoc()) {
-										
+										// $total_barang_masuk = $koneksi->query("select SUM(jumlah) as jumlah from barang_masuk where kode_barang = '$data[kode_barang]' ")->fetch_assoc();
+										// $total_barang_keluar = $koneksi->query("select SUM(jumlah) as jumlah from barang_keluar where kode_barang = '$data[kode_barang]' ")->fetch_assoc();
+										// if(!ISSET($total_barang_masuk['jumlah'])) $total_barang_masuk['jumlah'] = 0;
+										// if(!ISSET($total_barang_keluar['jumlah'])) $total_barang_keluar['jumlah'] = 0;
 									?>
 									
                   <tr>
@@ -45,12 +49,14 @@
 											<td><?php echo $data['kode_barang'] ?></td>
 											<td><?php echo $data['nama_barang'] ?></td>
 											<td><?php echo $data['jenis_barang'] ?></td>
-											
 											<td><?php echo $data['jumlah'] ?></td>
+											<?php /*
+											<td><?php echo $total_barang_masuk['jumlah'] ?></td>
+											<td><?php echo $total_barang_keluar['jumlah'] ?></td>
+											<td><?php echo ($data['jumlah'] + $total_barang_masuk['jumlah']) - $total_barang_keluar['jumlah'] ?></td>
+											*/?>
 											<td><?php echo $data['satuan'] ?></td>
-								
-
-											<td width=150 >
+											<td width=200 >
 											<a href="?page=gudang&aksi=tambahgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-success btn-sm" >Ubah</a>
 											<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=gudang&aksi=hapusgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-danger btn-sm" >Hapus</a>
 											</td>

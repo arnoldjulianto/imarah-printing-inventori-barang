@@ -91,7 +91,7 @@ else {
                             <label for="">Jumlah</label>
                             <div class="form-group">
                                <div class="form-line">
-                                <input type="number" name="jumlah" class="form-control" id="jumlah" value="<?php echo $jumlah; ?>" required /> 
+                                <input type="number" name="jumlah" class="form-control" id="jumlah" value="<?php echo $jumlah; ?>" required <?php if(ISSET($get_kode_barang)) echo 'readOnly'?> /> 
 								</div>
                             </div>
 

@@ -23,31 +23,44 @@
 <form action="page/laporan/export_laporan_barangkeluar_excel.php" method="post">
 	<div class="row form-group">
 
-		<div class="col-md-5">
+	<div class="col-md-3">
 		<select class="form-control " name="bln">
-							
-							
-    						<option value="1" selected="">January</option>
-    						<option value="2">February</option>
-    						<option value="3">March</option>
-    						<option value="4">April</option>
-    						<option value="5">May</option>
-    						<option value="6">June</option>
-    						<option value="7">July</option>
-    						<option value="8">August</option>
-    						<option value="9">September</option>
-    						<option value="10">October</option>
-    						<option value="11">November</option>
-    						<option value="12">December</option>
-        			</select>
-        		</div>
-        		<div class="col-md-3">
+      <option value="1" selected="">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">April</option>
+      <option value="5">May</option>
+      <option value="6">June</option>
+      <option value="7">July</option>
+      <option value="8">August</option>
+      <option value="9">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
+  </div>
+  
+  <div class="col-md-3">        
+      <select class="form-control " name="jenis_gudang">
+        <option value="all" selected="">SEMUA GUDANG</option>
+        <?php
+          $sql = $koneksi -> query("select * from jenis_gudang order by id");
+          while ($data=$sql->fetch_assoc()) {?>
+            <option value='<?=$data[jenis_gudang]?>' ><?=$data[jenis_gudang]?></option>
+      <?php	}
+          ?>
+      </select>  
+  </div>
+
+  <div class="col-md-3">
         		<?php
 $now=date('Y');
 echo "<select name='thn' class='form-control'>";
 for ($a=2018;$a<=$now;$a++)
 {
-     echo "<option value='$a'>$a</option>";
+    $selected = "";
+    if($a == $now) $selected = "selected"; 
+     echo "<option value='$a' $selected >$a</option>";
 }
 echo "</select>";
 ?>
@@ -61,7 +74,7 @@ echo "</select>";
 	<form id="Myform2">
     <div class="row form-group">
 
-        <div class="col-md-5">
+        <div class="col-md-3">
         <select class="form-control " name="bln">
                             
                             <option value="all" selected="">ALL</option>
@@ -78,14 +91,29 @@ echo "</select>";
                             <option value="11">November</option>
                             <option value="12">December</option>
                     </select>
-                </div>
-                <div class="col-md-3">
+</div>
+
+<div class="col-md-3">        
+      <select class="form-control " name="jenis_gudang">
+        <option value="all" selected="">SEMUA GUDANG</option>
+        <?php
+          $sql = $koneksi -> query("select * from jenis_gudang order by id");
+          while ($data=$sql->fetch_assoc()) {?>
+            <option value='<?=$data[jenis_gudang]?>' ><?=$data[jenis_gudang]?></option>
+      <?php	}
+          ?>
+      </select>  
+</div>
+
+<div class="col-md-3">
                 <?php
 $now=date('Y');
 echo "<select name='thn' class='form-control'>";
 for ($a=2018;$a<=$now;$a++)
 {
-     echo "<option value='$a'>$a</option>";
+    $selected = "";
+    if($a == $now) $selected = "selected"; 
+     echo "<option value='$a' $selected >$a</option>";
 }
 echo "</select>";
 ?>
@@ -150,6 +178,22 @@ echo "</select>";
           </div>
 
         </div>
+
+
+<script>
+jQuery(document).ready(function($){  
+  $.ajax({
+            type: 'POST',
+            url: 'page/laporan/export_laporan_barangkeluar_excel.php',
+            data: $('#Myform2').serialize(),
+            success: function(data) {
+             $(".tampung2").html(data);
+             $('.table').DataTable();
+
+            }
+        });
+})
+</script>
 
 
 

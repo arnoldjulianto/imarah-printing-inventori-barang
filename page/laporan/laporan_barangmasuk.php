@@ -49,9 +49,12 @@
         		<?php
 $now=date('Y');
 echo "<select name='thn' class='form-control'>";
+
 for ($a=2018;$a<=$now;$a++)
 {
-     echo "<option value='$a'>$a</option>";
+    $selected = "";
+    if($a == $now) $selected = "selected"; 
+     echo "<option value='$a' $selected >$a</option>";
 }
 echo "</select>";
 ?>
@@ -89,7 +92,9 @@ $now=date('Y');
 echo "<select name='thn' class='form-control'>";
 for ($a=2018;$a<=$now;$a++)
 {
-     echo "<option value='$a'>$a</option>";
+    $selected = "";
+    if($a == $now) $selected = "selected"; 
+     echo "<option value='$a' $selected >$a</option>";
 }
 echo "</select>";
 ?>
@@ -166,8 +171,20 @@ echo "</select>";
 
         </div>
 
+<script>
+  jQuery(document).ready(function($){
+      $.ajax({
+          type: 'POST',
+          url: 'page/laporan/export_laporan_barangmasuk_excel.php',
+          data: $('#Myform1').serialize(),
+          success: function(data) {
+            $(".tampung1").html(data);
+            $('.table').DataTable();
 
-
+          }
+      });
+});
+</script>
 
 
 

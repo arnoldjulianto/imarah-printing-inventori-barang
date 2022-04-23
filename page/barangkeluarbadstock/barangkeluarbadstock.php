@@ -9,7 +9,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Barang Keluar</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Barang Keluar Badstock</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -36,7 +36,7 @@
                     <?php 
 									
 									$no = 1;
-									$sql = $koneksi->query("select * from barang_keluar");
+									$sql = $koneksi->query("select * from barang_keluar_badstock");
 									while ($data = $sql->fetch_assoc()) {
 										
 									?>
@@ -53,15 +53,15 @@
 											<td><?php echo $data['satuan'] ?></td>
 											<td><?php echo $data['tujuan'] ?></td>
 											<td width=200>
-												<?php /*<a href="?page=barangkeluar&aksi=tambahbarangkeluar&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</a>*/?>
-												<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=barangkeluar&aksi=hapusbarangkeluar&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-danger btn-sm" ><i class="fa fa-trash"></i> Hapus</a>
+												<?php /*<a href="?page=barangkeluarbadstock&aksi=tambahbarangkeluar&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</a>*/?>
+												<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=barangkeluarbadstock&aksi=hapusbarangkeluarbadstock&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-danger btn-sm" ><i class="fa fa-trash"></i> Hapus</a>
 											</td>
                                         </tr>
 									<?php }?>
 
 										   </tbody>
                                 </table>
-								<a href="?page=barangkeluar&aksi=tambahbarangkeluar" class="btn btn-primary" >Tambah</a>
+								<a href="?page=barangkeluarbadstock&aksi=tambahbarangkeluarbadstock" class="btn btn-primary" >Tambah</a>
                   </tbody>
                 </table>
               </div>
