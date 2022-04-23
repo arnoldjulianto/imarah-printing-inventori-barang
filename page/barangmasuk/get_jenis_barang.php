@@ -1,6 +1,7 @@
 <?php
 include("../../koneksibarang.php");
-$jenis_gudang =$_POST['tamp'];
+$jenis_gudang =$_POST['jenis_gudang'];
+$kode_barang =$_POST['kode_barang'];
     $sql = "SELECT *
     FROM gudang
     where jenis_gudang = '$jenis_gudang'";
@@ -15,7 +16,9 @@ $jenis_gudang =$_POST['tamp'];
                   <option value="">-- Pilih Barang  --</option>
                   <?php
                   while ($data = mysqli_fetch_assoc($result)) {
-                    echo "<option value='$data[kode_barang].$data[nama_barang]'>$data[kode_barang] | $data[nama_barang]</option>";
+                    $selected = "";
+                    if($kode_barang == $data['kode_barang']) $selected ="selected";
+                    echo "<option value='$data[kode_barang].$data[nama_barang]' ".$selected." >$data[kode_barang] | $data[nama_barang]</option>";
                   }
                   ?>
                   
@@ -33,25 +36,24 @@ $jenis_gudang =$_POST['tamp'];
 
 <script>
 jQuery(document).ready(function($) {
-  $('.tampung').html('')
-   $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
+  
+  $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
+     $('.tampung').html('');
      var tamp = $(this).val(); // Ciptakan variabel provinsi
      $.ajax({
-            type: 'POST', // Metode pengiriman data menggunakan POST
-          url: 'page/barangmasuk/get_barang.php', // File yang akan memproses data
-         data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-         success: function(data) { // Jika berhasil
-              $('.tampung').html(data); // Berikan hasil ke id kota
-            }
-           
-     
+        type: 'POST', // Metode pengiriman data menggunakan POST
+        url: 'page/barangmasuk/get_barang.php', // File yang akan memproses data
+        data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
+        success: function(data) { // Jika berhasil
+            $('.tampung').html(data); // Berikan hasil ke id kota
+        }
     });
   });
 });
 
 jQuery(document).ready(function($) {
-  $('.tampung1').html('');
    $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
+     $('.tampung1').html('');
      var tamp = $(this).val(); // Ciptakan variabel provinsi
      $.ajax({
             type: 'POST', // Metode pengiriman data menggunakan POST

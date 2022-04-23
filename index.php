@@ -344,11 +344,12 @@ if(empty($_SESSION['id'])){
 jQuery(document).ready(function($) {
    $('#cmb_jenis_gudang').change(function() { // Jika Select Box id provinsi dipilih
      $('.kode_barang_area').html('');
-     var tamp = $(this).val(); // Ciptakan variabel provinsi
+     var jenis_gudang = $('#cmb_jenis_gudang').val(); // Ciptakan variabel provinsi
+     var kode_barang = "<?php if(ISSET($kode_barang)) echo $kode_barang?>"; // Ciptakan variabel provinsi
      $.ajax({
         type: 'POST', // Metode pengiriman data menggunakan POST
         url: 'page/barangmasuk/get_jenis_barang.php', // File yang akan memproses data
-        data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
+        data: 'jenis_gudang=' + jenis_gudang+'&kode_barang=' + kode_barang, // Data yang akan dikirim ke file pemroses
         success: function(data) { // Jika berhasil
             $('.kode_barang_area').html(data); // Berikan hasil ke id kota
         }

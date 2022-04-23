@@ -14,7 +14,14 @@
 <?php 
 $get_id_transaksi = $_GET['id_transaksi'];
 $koneksi = new mysqli("localhost","root","","inventori");
-$tanggal_masuk = date("Y-m-d");
+$format = "";
+$jenis_gudang = "";
+$tanggal_masuk = $tanggal_masuk = date("Y-m-d");
+$kode_barang = "";
+$nama_barang = "";
+$pengirim = "";
+$jumlah = "";
+$satuan = "";
 if(!ISSET($get_id_transaksi)){
 	$no = mysqli_query($koneksi, "select id_transaksi from barang_masuk order by id_transaksi desc");
 	$idtran = mysqli_fetch_array($no);
@@ -174,12 +181,12 @@ else{
 <script>
 jQuery(document).ready(function($) {
   $('.tampung').html('')
-  var tamp = $('#cmb_jenis_gudang').val(); // Ciptakan variabel provinsi
-  var tamp = "<?=$?>"; // Ciptakan variabel provinsi
+  var jenis_gudang = $('#cmb_jenis_gudang').val(); // Ciptakan variabel provinsi
+  var kode_barang = "<?php if(ISSET($kode_barang)) echo $kode_barang?>";  // Ciptakan variabel provinsi
   	$.ajax({
         type: 'POST', // Metode pengiriman data menggunakan POST
         url: 'page/barangmasuk/get_jenis_barang.php', // File yang akan memproses data
-        data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
+        data: 'jenis_gudang=' + jenis_gudang+'&kode_barang=' + kode_barang, // Data yang akan dikirim ke file pemroses
         success: function(data) { // Jika berhasil
             $('.kode_barang_area').html(data); // Berikan hasil ke id kota
         }
