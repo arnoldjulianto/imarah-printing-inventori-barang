@@ -27,6 +27,7 @@ if (isset($_POST['submit']))
 											<th>No</th>
 											<th>Id Transaksi</th>
 											<th>Tanggal Keluar</th>
+											<th>No. SPK</th>
 											<th>Gudang</th>
 											<th>Kode Barang</th>
 											<th>Nama Barang</th>			
@@ -39,7 +40,11 @@ if (isset($_POST['submit']))
                     <?php 
 									
 									$no = 1;
-									$sql = $koneksi->query("select * from barang_keluar where MONTH(tanggal) = '$bln' and YEAR(tanggal) = '$thn' and jenis_gudang = '$jenis_gudang' ");
+									$where_bulan = "";
+									$where_jenis_gudang = "";
+									if($bln != 'all') $where_bulan = "and MONTH(tanggal) = '$bln'";
+									if($jenis_gudang != 'all') $where_jenis_gudang = "and jenis_gudang = '$jenis_gudang'";
+									$sql = $koneksi->query("select * from barang_keluar where YEAR(tanggal) = '$thn' ".$where_bulan." ".$where_jenis_gudang);
 									while ($data = $sql->fetch_assoc()) {
 										
 									?>
@@ -48,6 +53,7 @@ if (isset($_POST['submit']))
                                             <td><?php echo $no++; ?></td>
 											<td><?php echo $data['id_transaksi'] ?></td>
 											<td><?php echo $data['tanggal'] ?></td>
+											<td><?php echo $data['nomor_spk'] ?></td>
 											<td><?php echo $data['jenis_gudang'] ?></td>
 											<td><?php echo $data['kode_barang'] ?></td>
 											<td><?php echo $data['nama_barang'] ?></td>
@@ -81,6 +87,7 @@ if (isset($_POST['submit']))
 											<th>No</th>
 											<th>Id Transaksi</th>
 											<th>Tanggal Keluar</th>
+											<th>No. SPK</th>
 											<th>Gudang</th>
 											<th>Kode Barang</th>
 											<th>Nama Barang</th>			
@@ -94,9 +101,11 @@ if (isset($_POST['submit']))
 		
 		<?php
 		$no = 1;
-		if($bln != 'all') $where_bulan = "MONTH(tanggal) = '$bln'";
-		if($bln != 'all') $where_bulan = "MONTH(tanggal) = '$bln'";
-		$sql = $koneksi->query("select * from barang_keluar where YEAR(tanggal) = '$thn' and jenis_gudang = '$jenis_gudang' ");
+		$where_bulan = "";
+		$where_jenis_gudang = "";
+		if($bln != 'all') $where_bulan = "and MONTH(tanggal) = '$bln'";
+		if($jenis_gudang != 'all') $where_jenis_gudang = "and jenis_gudang = '$jenis_gudang'";
+		$sql = $koneksi->query("select * from barang_keluar where YEAR(tanggal) = '$thn' ".$where_bulan." ".$where_jenis_gudang);
 		while ($data = $sql->fetch_assoc()) {
 									
 		?>
@@ -106,6 +115,7 @@ if (isset($_POST['submit']))
                                             <td><?php echo $no++; ?></td>
 											<td><?php echo $data['id_transaksi'] ?></td>
 											<td><?php echo $data['tanggal'] ?></td>
+											<td><?php echo $data['nomor_spk'] ?></td>
 											<td><?php echo $data['jenis_gudang'] ?></td>
 											<td><?php echo $data['kode_barang'] ?></td>
 											<td><?php echo $data['nama_barang'] ?></td>

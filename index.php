@@ -457,7 +457,7 @@ jQuery(document).ready(function($){
   });  
 });
 
-  jQuery(document).ready(function($){
+jQuery(document).ready(function($){
     $(function(){
     $('#Myform2').submit(function() {
         $.ajax({
@@ -466,6 +466,26 @@ jQuery(document).ready(function($){
             data: $(this).serialize(),
             success: function(data) {
              $(".tampung2").html(data);
+             $('.table').DataTable();
+
+            }
+        });
+
+        return false;
+         e.preventDefault();
+        });
+    });
+});
+
+jQuery(document).ready(function($){
+    $(function(){
+    $('#Myform3').submit(function() {
+        $.ajax({
+            type: 'POST',
+            url: 'page/laporan/export_laporan_barangkeluarbadstock_excel.php',
+            data: $(this).serialize(),
+            success: function(data) {
+             $(".tampung1").html(data);
              $('.table').DataTable();
 
             }

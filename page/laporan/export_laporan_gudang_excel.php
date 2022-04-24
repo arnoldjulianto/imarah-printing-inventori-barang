@@ -17,11 +17,8 @@
 											<th>Kode Barang</th>
 											<th>Nama Barang</th>											
 											<th>Jenis Barang</th>
-											
 											<th>Jumlah Barang</th>
 											<th>Satuan</th>
-										
-                                         
                                         </tr>
 	
  <?php 

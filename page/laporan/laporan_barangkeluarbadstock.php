@@ -1,19 +1,11 @@
 
-
-
-
-
-
-
-
-
  <!-- Begin Page Content -->
         <div class="container-fluid">
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Barang Masuk</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Bad Stock</h6>
             </div>
             <div class="card-body">
 			
@@ -24,7 +16,7 @@
         </td></tr>
         <tr>
             <td width="50%">
-<form action="page/laporan/export_laporan_barangmasuk_excel.php" method="post">
+<form action="page/laporan/export_laporan_barangkeluarbadstock_excel.php" method="post">
 	<div class="row form-group">
 
 	<div class="col-md-3">
@@ -76,7 +68,7 @@ echo "</select>";
 	</form>
 	
 	
-	<form id="Myform1">
+	<form id="Myform3">
   <div class="row form-group">
 
   <div class="col-md-3">
@@ -137,23 +129,16 @@ echo "</select>";
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                                        <tr>
-											<th>No</th>
-											<th>Id Transaksi</th>
-											<th>Tanggal Masuk</th>
-											<th>Kode Barang</th>
-											<th>Nama Barang</th>
-										
-											<th>Pengirim</th>
-											
-										
-										
-                                            
-											<th>Jumlah Masuk</th>
-											<th>Satuan Barang</th>
-										
-                                         
-                                        </tr>
+                      <tr>
+                          <th>No</th>
+                          <th>Id Transaksi</th>
+                          <th>Tanggal</th>
+                          <th>Kode Barang</th>
+                          <th>Nama Barang</th>
+                          <th>Pengirim</th>     
+                          <th>Jumlah</th>
+                          <th>Satuan Barang</th>
+                      </tr>
 										</thead>
 										
                
@@ -161,26 +146,21 @@ echo "</select>";
                     <?php 
 									
 									$no = 1;
-									$sql = $koneksi->query("select * from barang_masuk");
+									$sql = $koneksi->query("select * from barang_keluar_badstock");
 									while ($data = $sql->fetch_assoc()) {
 										
 									?>
 									
-                                        <tr>
-                                            <td><?php echo $no++; ?></td>
-											<td><?php echo $data['id_transaksi'] ?></td>
-											<td><?php echo $data['tanggal'] ?></td>
-											<td><?php echo $data['kode_barang'] ?></td>
-											<td><?php echo $data['nama_barang'] ?></td>
-											
-											<td><?php echo $data['pengirim'] ?></td>
-									
-                                         
-											<td><?php echo $data['jumlah'] ?></td>
-											<td><?php echo $data['satuan'] ?></td>
-								
-
-                                        </tr>
+                      <tr>
+                        <td><?php echo $no++; ?></td>
+                        <td><?php echo $data['id_transaksi'] ?></td>
+                        <td><?php echo $data['tanggal'] ?></td>
+                        <td><?php echo $data['kode_barang'] ?></td>
+                        <td><?php echo $data['nama_barang'] ?></td>
+                        <td><?php echo $data['pengirim'] ?></td>
+                        <td><?php echo $data['jumlah'] ?></td>
+                        <td><?php echo $data['satuan'] ?></td>
+                      </tr>
 									<?php }?>
 
 										   </tbody>
@@ -198,8 +178,8 @@ echo "</select>";
   jQuery(document).ready(function($){
       $.ajax({
           type: 'POST',
-          url: 'page/laporan/export_laporan_barangmasuk_excel.php',
-          data: $('#Myform1').serialize(),
+          url: 'page/laporan/export_laporan_barangkeluarbadstock_excel.php',
+          data: $('#Myform3').serialize(),
           success: function(data) {
             $(".tampung1").html(data);
             $('.table').DataTable();
