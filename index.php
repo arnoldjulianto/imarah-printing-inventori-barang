@@ -31,13 +31,18 @@ if(empty($_SESSION['id'])){
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-  
-  
+
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  
-  <script src="vendor/jquery/jquery.min.js"></script>
 
+  <!-- Sweet Alert 2 -->
+  <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Jquery -->
+  <script src="vendor/jquery/jquery.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -383,118 +388,102 @@ if(empty($_SESSION['id'])){
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
-  
+
+  <!-- Page level custom scripts -->
+  <script src="vendor/sweetalert2/sweetalert2.all.min.js"></script>
+
     <!--script for this page-->
 <script>
 
 jQuery(document).ready(function($) {
-   $('#cmb_jenis_gudang').change(function() { // Jika Select Box id provinsi dipilih
-     $('.kode_barang_area').html('');
-     var jenis_gudang = $('#cmb_jenis_gudang').val(); // Ciptakan variabel provinsi
-     var kode_barang = "<?php if(ISSET($kode_barang)) echo $kode_barang?>"; // Ciptakan variabel provinsi
-     $.ajax({
-        type: 'POST', // Metode pengiriman data menggunakan POST
-        url: 'page/ajax/get_jenis_barang.php', // File yang akan memproses data
-        data: 'jenis_gudang=' + jenis_gudang+'&kode_barang=' + kode_barang, // Data yang akan dikirim ke file pemroses
-        success: function(data) { // Jika berhasil
-            $('.kode_barang_area').html(data); // Berikan hasil ke id kota
-        }
-    });
-  });
-});
-
-jQuery(document).ready(function($) {
-  $('.tampung').html('')
-   $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
-     var tamp = $(this).val(); // Ciptakan variabel provinsi
-     $.ajax({
-            type: 'POST', // Metode pengiriman data menggunakan POST
-          url: 'page/ajax/get_barang.php', // File yang akan memproses data
-         data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-         success: function(data) { // Jika berhasil
-              $('.tampung').html(data); // Berikan hasil ke id kota
-            }
-           
-     
-    });
-  });
-});
-
-jQuery(document).ready(function($) {
-  $('.tampung1').html('');
-   $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
-     var tamp = $(this).val(); // Ciptakan variabel provinsi
-     $.ajax({
-            type: 'POST', // Metode pengiriman data menggunakan POST
-          url: 'page/ajax/get_satuan.php', // File yang akan memproses data
-         data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
-         success: function(data) { // Jika berhasil
-              $('.tampung1').html(data); // Berikan hasil ke id kota
-            }
-           
-     
-    });
-});
+  
 });
 
 jQuery(document).ready(function($){
-  $(function(){
-    $('#Myform1').submit(function() {
+  $('#Myform1').submit(function() {
+    Swal.fire({
+        allowOutsideClick: false,
+        showConfirmButton:false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        }
+    });
+    if($('#method').val() == 'excel') {
+        window.open('page/laporan/export_laporan_barangmasuk_excel.php?'+$(this).serialize(), '_BLANK');
+        Swal.close()
+    }
+    else{
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: 'page/laporan/export_laporan_barangmasuk_excel.php',
             data: $(this).serialize(),
             success: function(data) {
-             $(".tampung1").html(data);
-             $('.table').DataTable();
-
+              $(".tampung1").html(data);
+              $('.table').DataTable();
+              Swal.close()
             }
         });
+    }
+    return false;
+    e.preventDefault();
+  });
 
-        return false;
-         e.preventDefault();
-        });
-  });  
-});
-
-jQuery(document).ready(function($){
-    $(function(){
-    $('#Myform2').submit(function() {
+  $('#Myform2').submit(function() {
+    Swal.fire({
+        allowOutsideClick: false,
+        showConfirmButton:false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        }
+    });
+    if($('#method').val() == 'excel') {
+        window.open('page/laporan/export_laporan_barangkeluar_excel.php?'+$(this).serialize(), '_BLANK');
+        Swal.close()
+    }
+    else{
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: 'page/laporan/export_laporan_barangkeluar_excel.php',
             data: $(this).serialize(),
             success: function(data) {
-             $(".tampung2").html(data);
-             $('.table').DataTable();
-
+              $(".tampung2").html(data);
+              $('.table').DataTable();
+              Swal.close()
             }
         });
-
-        return false;
-         e.preventDefault();
-        });
+    }
+    return false;
+    e.preventDefault();
+  });
+        
+  $('#Myform3').submit(function() {
+    Swal.fire({
+        allowOutsideClick: false,
+        showConfirmButton:false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        }
     });
-});
-
-jQuery(document).ready(function($){
-    $(function(){
-    $('#Myform3').submit(function() {
+    if($('#method').val() == 'excel') {
+        window.open('page/laporan/export_laporan_barangkeluarbadstock_excel.php?'+$(this).serialize(), '_BLANK');
+        Swal.close()
+    }
+    else{
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: 'page/laporan/export_laporan_barangkeluarbadstock_excel.php',
             data: $(this).serialize(),
             success: function(data) {
-             $(".tampung1").html(data);
-             $('.table').DataTable();
-
+              $(".tampung3").html(data);
+              $('.table').DataTable();
+              Swal.close()
             }
         });
+    }
+    return false;
+    e.preventDefault();
+  });
 
-        return false;
-         e.preventDefault();
-        });
-    });
 });
 </script>
 </body>

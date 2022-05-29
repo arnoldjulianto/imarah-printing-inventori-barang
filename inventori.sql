@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Apr 2022 pada 06.02
+-- Waktu pembuatan: 29 Bulan Mei 2022 pada 06.18
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.4.26
 
@@ -40,17 +40,6 @@ CREATE TABLE `barang_keluar` (
   `satuan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Trigger `barang_keluar`
---
-DELIMITER $$
-CREATE TRIGGER `barang_keluar` AFTER INSERT ON `barang_keluar` FOR EACH ROW BEGIN
-	UPDATE gudang SET jumlah = jumlah-new.jumlah
-    WHERE kode_barang=new.kode_barang;
-    END
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -62,24 +51,13 @@ CREATE TABLE `barang_keluar_badstock` (
   `id_transaksi` varchar(100) NOT NULL,
   `nomor_spk` varchar(100) NOT NULL,
   `jenis_gudang` varchar(100) NOT NULL,
-  `tanggal` datetime NOT NULL,
+  `tanggal` date NOT NULL,
   `kode_barang` varchar(100) NOT NULL,
   `nama_barang` varchar(100) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `satuan` varchar(50) NOT NULL,
   `tujuan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Trigger `barang_keluar_badstock`
---
-DELIMITER $$
-CREATE TRIGGER `barang_keluar_badstock` BEFORE INSERT ON `barang_keluar_badstock` FOR EACH ROW BEGIN
-	UPDATE gudang SET jumlah = jumlah-new.jumlah
-    WHERE kode_barang=new.kode_barang;
-    END
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -99,17 +77,6 @@ CREATE TABLE `barang_masuk` (
   `satuan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Trigger `barang_masuk`
---
-DELIMITER $$
-CREATE TRIGGER `barang_masuk` AFTER INSERT ON `barang_masuk` FOR EACH ROW BEGIN
-	UPDATE gudang SET jumlah = jumlah+new.jumlah
-    WHERE kode_barang=new.kode_barang;
-    END
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -125,6 +92,14 @@ CREATE TABLE `gudang` (
   `jumlah` varchar(250) NOT NULL,
   `satuan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `gudang`
+--
+
+INSERT INTO `gudang` (`id`, `kode_barang`, `jenis_gudang`, `nama_barang`, `jenis_barang`, `jumlah`, `satuan`) VALUES
+(18, 'BAR-0522001', 'Imarah Printing', 'Buavita', 'Minuman', '100', 'Pack'),
+(19, 'BAR-0522002', 'Imarah Printing', 'Chitato', 'Makanan', '100', 'PCS');
 
 -- --------------------------------------------------------
 
@@ -162,8 +137,7 @@ CREATE TABLE `jenis_gudang` (
 --
 
 INSERT INTO `jenis_gudang` (`id`, `jenis_gudang`) VALUES
-(4, 'Impro'),
-(5, 'Imprint');
+(5, 'Imarah Printing');
 
 -- --------------------------------------------------------
 
@@ -385,7 +359,7 @@ CREATE TABLE `user_sub_menu_1` (
 --
 
 INSERT INTO `user_sub_menu_1` (`id_sub_menu_1`, `id_menu`, `nama_sub_menu`, `urutan_sub_menu_1`, `view_sub_menu_1`, `url_sub_menu_1`, `icon`) VALUES
-(1, 3, 'Jenis Gudang', 1, '', '?page=jenisgudang&aksi=', ''),
+(1, 0, 'Jenis Gudang', 1, '', '?page=jenisgudang&aksi=', ''),
 (2, 3, 'Jenis Barang', 3, '', '?page=jenisbarang&aksi=', ''),
 (3, 3, 'Satuan Barang', 4, '', '?page=satuanbarang&aksi=', ''),
 (4, 3, 'Data Supplier', 5, '', '?page=supplier&aksi=', ''),
@@ -576,7 +550,7 @@ ALTER TABLE `barang_masuk`
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_barang`

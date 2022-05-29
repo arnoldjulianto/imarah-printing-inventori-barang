@@ -19,7 +19,6 @@
 											<th>No</th>
 											<th>Id Transaksi</th>
 											<th>Tanggal Keluar</th>
-											<th>Gudang</th>
 											<th>No. SPK</th>
 											<th>Kode Barang</th>
 											<th>Nama Barang</th>
@@ -45,15 +44,14 @@
                                             <td><?php echo $no++; ?></td>
 											<td><?php echo $data['id_transaksi'] ?></td>
 											<td><?php echo $data['tanggal'] ?></td>
-											<td><?php echo $data['jenis_gudang'] ?></td>
 											<td><?php echo $data['nomor_spk'] ?></td>
 											<td><?php echo $data['kode_barang'] ?></td>
 											<td><?php echo $data['nama_barang'] ?></td>
 											<td><?php echo $data['jumlah'] ?></td>
 											<td><?php echo $data['satuan'] ?></td>
 											<td><?php echo $data['tujuan'] ?></td>
-											<td width=200>
-												<?php /*<a href="?page=barangkeluar&aksi=tambahbarangkeluar&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</a>*/?>
+											<td style="min-width:150px">
+												<a href="?page=barangkeluar&aksi=tambahbarangkeluar&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</a>
 												<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=barangkeluar&aksi=hapusbarangkeluar&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-danger btn-sm" ><i class="fa fa-trash"></i> Hapus</a>
 											</td>
                                         </tr>

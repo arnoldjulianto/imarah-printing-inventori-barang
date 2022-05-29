@@ -11,7 +11,7 @@
 
 <h2>Laporan Data Supplier</h2>
 
-<table border="1">
+<table border="1" style="text-align:center">
 	<tr>
 			<th>No</th>
 											<th>Kode Supplier</th>

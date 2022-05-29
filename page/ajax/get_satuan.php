@@ -12,17 +12,7 @@ $kode_bar = $pecah_bar[0];
     while($row = mysqli_fetch_assoc($result)) {
                                        
     ?>
-		
-		<label for="satuan">Satuan</label>
-                            <div class="form-group">
-                               <div class="form-line">
-                                 <input readonly="readonly" id="satuan" name="satuan" type="text" class="form-control" value="<?php echo $row["satuan"];?>">
-
-								</input>
-                                     
-									 
-							</div>
-                            </div>
+      <input readonly="readonly" id="satuan" name="satuan" type="hidden" class="form-control" value="<?php echo $row["satuan"];?>"/>
  <?php
    		}
     } else {

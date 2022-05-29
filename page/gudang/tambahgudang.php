@@ -31,8 +31,25 @@ else {
 	$jenis_barang = $data['jenis_barang'];
 	$satuan = $data['satuan'];
 	$jumlah = $data['jumlah'];
+	$total_barang_masuk = $koneksi->query("select SUM(jumlah) as jumlah from barang_masuk where kode_barang = '$_GET[kode_barang]' ")->fetch_assoc();
+	$total_barang_keluar = $koneksi->query("select SUM(jumlah) as jumlah from barang_keluar where kode_barang = '$_GET[kode_barang]' ")->fetch_assoc();
+	if(!ISSET($total_barang_masuk['jumlah'])) $total_barang_masuk['jumlah'] = 0;
+	if(!ISSET($total_barang_keluar['jumlah'])) $total_barang_keluar['jumlah'] = 0;    
+	$jumlah = $jumlah + $total_barang_masuk['jumlah'] - $total_barang_keluar['jumlah']; 
 }
+
 ?>
+<form method="POST" enctype="multipart/form-data">
+<select name="jenis_gudang" id="cmb_jenis_gudang" style="visibility:hidden" >
+	<!-- <option value="">-- Pilih Gudang  --</option> -->
+	<?php
+	$sql = $koneksi -> query("select * from jenis_gudang order by id");
+	while ($data=$sql->fetch_assoc()) {?>
+		<option value='<?=$data[jenis_gudang]?>' <?php if($jenis_gudang == $data['jenis_gudang']) echo 'selected'?> ><?=$data[jenis_gudang]?></option>
+<?php	}
+	?>
+</select>
+
  <div class="container-fluid">
           <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -41,31 +58,15 @@ else {
             <div class="card-body">
               <div class="table-responsive">
 							<div class="body">
-							<form method="POST" enctype="multipart/form-data">
 							
-							<label for="">Kode Barang</label>
                             <div class="form-group">
+								<label for="">Kode Barang</label>
                                <div class="form-line">
                                   <input type="text" name="kode_barang" class="form-control" id="kode_barang" value="<?php echo $format; ?>" readonly />	 
 							</div>
                             </div>
 
-							<label for="">Gudang</label>
-                            <div class="form-group">
-                               <div class="form-line">
-									<select name="jenis_gudang" id="cmb_jenis_gudang" class="form-control" >
-										<option value="">-- Pilih Gudang  --</option>
-										<?php
-										
-										$sql = $koneksi -> query("select * from jenis_gudang order by id");
-										while ($data=$sql->fetch_assoc()) { ?>
-											<option value='<?=$data[jenis_gudang]?>' <?php if($jenis_gudang == $data['jenis_gudang']) echo 'selected'?> ><?=$data[jenis_gudang]?></option>
-										<?php }?>
-									
-									</select>
-								</div>
-                            </div>
-
+							
 							<label for="">Nama Barang</label>
                             <div class="form-group">
                                <div class="form-line">

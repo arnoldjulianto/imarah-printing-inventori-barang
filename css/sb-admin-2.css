@@ -1852,6 +1852,10 @@ textarea.form-control {
   margin-bottom: 1rem;
 }
 
+.form-group:hover {
+  background-color: lightgrey;
+}
+
 .form-text {
   display: block;
   margin-top: 0.25rem;

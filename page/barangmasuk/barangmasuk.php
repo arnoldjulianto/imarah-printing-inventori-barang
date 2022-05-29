@@ -9,7 +9,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Barang Masuk Impro</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Barang Masuk</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -47,8 +47,7 @@
 											<td><?php echo $data['jumlah'] ?></td>
 											<td><?php echo $data['satuan'] ?></td>
 											<td width=150>
-												<?php /*
-												<a href="?page=barangmasuk&aksi=tambahbarangmasuk&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</a>*/?>
+												<a href="?page=barangmasuk&aksi=tambahbarangmasuk&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</a>
 												<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=barangmasuk&aksi=hapusbarangmasuk&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-danger btn-sm" ><i class="fa fa-trash"></i> Hapus</a>
 											</td>
                                         </tr>

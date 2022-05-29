@@ -9,74 +9,13 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Barang Keluar</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Laporan Barang Keluar</h6>
             </div>
             <div class="card-body">
-			
-			 
-	 	 	<table >
-        <tr><td>
-            LAPORAN PERBULAN DAN PERTAHUN
-        </td></tr>
-        <tr>
-            <td width="50%">
-<form action="page/laporan/export_laporan_barangkeluar_excel.php" method="post">
-	<div class="row form-group">
-
-	<div class="col-md-3">
-		<select class="form-control " name="bln">
-      <option value="1" selected="">January</option>
-      <option value="2">February</option>
-      <option value="3">March</option>
-      <option value="4">April</option>
-      <option value="5">May</option>
-      <option value="6">June</option>
-      <option value="7">July</option>
-      <option value="8">August</option>
-      <option value="9">September</option>
-      <option value="10">October</option>
-      <option value="11">November</option>
-      <option value="12">December</option>
-    </select>
-  </div>
-  
-  <div class="col-md-3">        
-      <select class="form-control " name="jenis_gudang">
-        <option value="all" selected="">SEMUA GUDANG</option>
-        <?php
-          $sql = $koneksi -> query("select * from jenis_gudang order by id");
-          while ($data=$sql->fetch_assoc()) {?>
-            <option value='<?=$data[jenis_gudang]?>' ><?=$data[jenis_gudang]?></option>
-      <?php	}
-          ?>
-      </select>  
-  </div>
-
-  <div class="col-md-3">
-        		<?php
-$now=date('Y');
-echo "<select name='thn' class='form-control'>";
-for ($a=2018;$a<=$now;$a++)
-{
-    $selected = "";
-    if($a == $now) $selected = "selected"; 
-     echo "<option value='$a' $selected >$a</option>";
-}
-echo "</select>";
-?>
-</div>
-        
-	<input type="submit" class="" name="submit" value="Export to Excel">
-	</div>
-	</form>
-	
-	
-	<form id="Myform2">
-    <div class="row form-group">
-
-        <div class="col-md-3">
-        <select class="form-control " name="bln">
-                            
+              <form id="Myform2">
+                  <div class="row form-group">
+                    <div class="col-md-3">
+                      <select class="form-control " name="bln">
                             <option value="all" selected="">ALL</option>
                             <option value="1">January</option>
                             <option value="2">February</option>
@@ -90,108 +29,50 @@ echo "</select>";
                             <option value="10">October</option>
                             <option value="11">November</option>
                             <option value="12">December</option>
-                    </select>
-</div>
+                      </select>
+                    </div>
 
-<div class="col-md-3">        
-      <select class="form-control " name="jenis_gudang">
-        <option value="all" selected="">SEMUA GUDANG</option>
-        <?php
-          $sql = $koneksi -> query("select * from jenis_gudang order by id");
-          while ($data=$sql->fetch_assoc()) {?>
-            <option value='<?=$data[jenis_gudang]?>' ><?=$data[jenis_gudang]?></option>
-      <?php	}
-          ?>
-      </select>  
-</div>
+                    <div class="col-md-3">
+                        <?php
+                        $now=date('Y');
+                        echo "<select name='thn' class='form-control'>";
+                        for ($a=2018;$a<=$now;$a++)
+                        {
+                            $selected = "";
+                            if($a == $now) $selected = "selected"; 
+                            echo "<option value='$a' $selected >$a</option>";
+                        }
+                        echo "</select>";
+                        ?>
+                    </div>
+                        <input type="hidden" id="method" name="method" value="" />
+                        <button style="margin-right:10px" type="submit" class="btn btn-primary btn-sm" onClick="$('#method').val('')" ><i class="fa fa-filter"></i> Tampilkan</button>
+                        <button type="submit" class="btn btn-success btn-sm" onClick="$('#method').val('excel')"><i class="fa fa-file-excel"></i> Excel</button>
+                  </div>
+              </form>
 
-<div class="col-md-3">
-                <?php
-$now=date('Y');
-echo "<select name='thn' class='form-control'>";
-for ($a=2018;$a<=$now;$a++)
-{
-    $selected = "";
-    if($a == $now) $selected = "selected"; 
-     echo "<option value='$a' $selected >$a</option>";
-}
-echo "</select>";
-?>
-</div>
-
-
-    <input type="submit" class="" name="submit2"  value="Tampilkan">
-    </div>
-    </form>
-    </td>
-    
-          
-   </table>
-	
-	<div class="tampung2">
-			
-			
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                                        <tr>
-											<th>No</th>
-											<th>Id Transaksi</th>
-											<th>Tanggal Keluar</th>
-											<th>Kode Barang</th>
-											<th>Nama Barang</th>			
-											<th>Jumlah Keluar</th>
-											<th>Tujuan</th>
-
-                                        </tr>
-										</thead>
-										
-               
-                  <tbody>
-                    <?php 
-									
-									$no = 1;
-									$sql = $koneksi->query("select * from barang_keluar");
-									while ($data = $sql->fetch_assoc()) {
-										
-									?>
-									
-                                        <tr>
-                                            <td><?php echo $no++; ?></td>
-											<td><?php echo $data['id_transaksi'] ?></td>
-											<td><?php echo $data['tanggal'] ?></td>
-											<td><?php echo $data['kode_barang'] ?></td>
-											<td><?php echo $data['nama_barang'] ?></td>
-											<td><?php echo $data['jumlah'] ?></td>
-											<td><?php echo $data['tujuan'] ?></td>
-
-                                        </tr>
-									<?php }?>
-
-										   </tbody>
-                                </table>
-							
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
+<div class="tampung2"></div>
 
 <script>
 jQuery(document).ready(function($){  
-  $.ajax({
-            type: 'POST',
-            url: 'page/laporan/export_laporan_barangkeluar_excel.php',
-            data: $('#Myform2').serialize(),
-            success: function(data) {
-             $(".tampung2").html(data);
-             $('.table').DataTable();
+    Swal.fire({
+        allowOutsideClick: false,
+        showConfirmButton:false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        }
+    });
 
-            }
-        });
+    $.ajax({
+          type: 'GET',
+          url: 'page/laporan/export_laporan_barangkeluar_excel.php',
+          data: $('#Myform2').serialize(),
+          success: function(data) {
+            $(".tampung2").html(data);
+            $('.table').DataTable();
+            Swal.close()
+          }
+    });
 })
 </script>
 
