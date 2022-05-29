@@ -218,54 +218,72 @@ jQuery(document).ready(function($) {
 });
 
 function sum() {
-	 var stok = document.getElementById('stok').value;
-	 var jumlahlama = document.getElementById('jumlahlama').value;
-	 var jumlahkeluar = document.getElementById('jumlahkeluar').value;
-	 console.log("Stok + jumlah lama + jumlah keluar", stok )
-	 var satuan ="";
-	 if(typeof(document.getElementById('satuan')) !== "undefined" && document.getElementById('satuan') !== null ){
-		satuan = document.getElementById('satuan').value;
-	 }
-	 var result;
-	if(jumlahlama == "") result = parseInt(stok) - parseInt(jumlahkeluar);
-	else {
-		result = (parseInt(stok) + parseInt(jumlahlama) ) - parseInt(jumlahkeluar);
+	Swal.close();
+	var stok = document.getElementById('stok').value;
+	if(stok == ""){
+			Swal.fire({
+				icon: 'error',
+				title: 'Kesalahan Terjadi',
+				text: 'Sepertinya Anda Belum Membuat Stock Barang Apapun Ke Dalam Gudang, Klik Lanjutkan Untuk Menambah Stock Barang Gudang',
+				allowOutsideClick: false,
+				confirmButtonText:'Lanjutkan'
+			}).then((result) => {
+				/* Read more about isConfirmed, isDenied below */
+				if (result.isConfirmed) {
+					window.location.href="?page=gudang&aksi=tambahgudang";
+				} else if (result.isDenied) {
+				}
+			})
 	}
-	if (jumlahkeluar < 0) {
-		Swal.fire({
-			icon: 'error',
-			title: 'Kesalahan Terjadi',
-			text: 'Jumlah Barang Keluar Tidak Boleh Kurang Dari 0',
-		})
-		document.getElementById('jumlahkeluar').value = '';
-		result = stok;
+	else{
+		var jumlahlama = document.getElementById('jumlahlama').value;
+		var jumlahkeluar = document.getElementById('jumlahkeluar').value;
+		console.log("Stok + jumlah lama + jumlah keluar", stok )
+		var satuan ="";
+		if(typeof(document.getElementById('satuan')) !== "undefined" && document.getElementById('satuan') !== null ){
+			satuan = document.getElementById('satuan').value;
+		}
+		var result;
+		if(jumlahlama == "") result = parseInt(stok) - parseInt(jumlahkeluar);
+		else {
+			result = (parseInt(stok) + parseInt(jumlahlama) ) - parseInt(jumlahkeluar);
+		}
+		if (jumlahkeluar < 0) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Kesalahan Terjadi',
+				text: 'Jumlah Barang Keluar Tidak Boleh Kurang Dari 0',
+			})
+			document.getElementById('jumlahkeluar').value = '';
+			result = stok;
+		}
+		
+		if(result < 0) {
+			var max = 0;
+			if(jumlahlama != "") max = parseInt(stok) + parseInt(jumlahlama);
+			else max = parseInt(stok);
+
+			Swal.fire({
+				icon: 'error',
+				title: 'Kesalahan Terjadi',
+				text: 'Jumlah Barang Keluar Maks. Yang Diizinkan Adalah '+max +" "+satuan,
+			})
+			document.getElementById('jumlahkeluar').value = '';
+			result = stok;
+		}
+
+		if (!isNaN(result)) {
+			document.getElementById('jumlah').value = result;
+		}
+		else document.getElementById('jumlah').value = stok;
+
+		
+		if(typeof(document.getElementById('jumlahkeluarsebelum')) !== "undefined" && document.getElementById('jumlahkeluarsebelum') !== null ){
+			document.getElementById('jumlahkeluarsebelum').textContent = jumlahlama+" "+satuan; 
+		}
+		document.getElementById('jumlahkeluarsesudah').textContent = document.getElementById('jumlah').value+" "+satuan;
+		document.getElementById('stoksaatini').textContent = stok+" "+satuan;
 	}
-	 
-	 if(result < 0) {
-		var max = 0;
-		if(jumlahlama != "") max = parseInt(stok) + parseInt(jumlahlama);
-		else max = parseInt(stok);
-
-		Swal.fire({
-			icon: 'error',
-			title: 'Kesalahan Terjadi',
-			text: 'Jumlah Barang Keluar Maks. Yang Diizinkan Adalah '+max +" "+satuan,
-		})
-		document.getElementById('jumlahkeluar').value = '';
-		result = stok;
-	 }
-
-	 if (!isNaN(result)) {
-		 document.getElementById('jumlah').value = result;
-	 }
-	 else document.getElementById('jumlah').value = stok;
-
-	 
-	 if(typeof(document.getElementById('jumlahkeluarsebelum')) !== "undefined" && document.getElementById('jumlahkeluarsebelum') !== null ){
-		 document.getElementById('jumlahkeluarsebelum').textContent = jumlahlama+" "+satuan; 
-	 }
-	 document.getElementById('jumlahkeluarsesudah').textContent = document.getElementById('jumlah').value+" "+satuan;
-	 document.getElementById('stoksaatini').textContent = stok+" "+satuan;
  }
 </script>								
 								

@@ -153,6 +153,7 @@ else{
 							</div>
 						</div>
 						<hr/>
+
 						<input type="submit" name="simpan" value="Simpan" class="btn btn-primary col-12">
 					</form>
 							
@@ -229,45 +230,63 @@ jQuery(document).ready(function($) {
 });
 
 function sum() {
-	 var stok = document.getElementById('stok').value;
-	 var jumlahlama = document.getElementById('jumlahlama').value;
-	 var jumlahmasuk = document.getElementById('jumlahmasuk').value;
-	 
-	 var result;
-	 if(jumlahlama == "") result = parseInt(stok) + parseInt(jumlahmasuk);
-	 else {
-		 result = (parseInt(stok) - parseInt(jumlahlama) ) + parseInt(jumlahmasuk );
-	 }
+	Swal.close() ;
+	var stok = document.getElementById('stok').value;
+	if(stok == ""){
+			Swal.fire({
+				icon: 'error',
+				title: 'Kesalahan Terjadi',
+				text: 'Sepertinya Anda Belum Membuat Stock Barang Apapun Ke Dalam Gudang, Klik Lanjutkan Untuk Menambah Stock Barang Gudang',
+				allowOutsideClick: false,
+				confirmButtonText:'Lanjutkan'
+			}).then((result) => {
+				/* Read more about isConfirmed, isDenied below */
+				if (result.isConfirmed) {
+					window.location.href="?page=gudang&aksi=tambahgudang";
+				} else if (result.isDenied) {
+				}
+			})
+	}
+	else{
+		var jumlahlama = document.getElementById('jumlahlama').value;
+		var jumlahmasuk = document.getElementById('jumlahmasuk').value;
+		
+		var result;
+		if(jumlahlama == "") result = parseInt(stok) + parseInt(jumlahmasuk);
+		else {
+			result = (parseInt(stok) - parseInt(jumlahlama) ) + parseInt(jumlahmasuk );
+		}
 
-	 console.log("jumlahmasuk", jumlahmasuk)
+		console.log("jumlahmasuk", jumlahmasuk)
 
-	 if (jumlahmasuk < 0) {
-		Swal.fire({
-			icon: 'error',
-			title: 'Kesalahan Terjadi',
-			text: 'Jumlah Barang Masuk Tidak Boleh Kurang Dari Nol',
-		})
-		result = stok;
-		document.getElementById('jumlahmasuk').value = '';
-	 }
+		if (jumlahmasuk < 0) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Kesalahan Terjadi',
+				text: 'Jumlah Barang Masuk Tidak Boleh Kurang Dari Nol',
+			})
+			result = stok;
+			document.getElementById('jumlahmasuk').value = '';
+		}
 
-	 if (!isNaN(result)) {
-		 document.getElementById('jumlah').value = result;
-	 }
-	 else {
-		document.getElementById('jumlah').value = stok;
-	 }
+		if (!isNaN(result)) {
+			document.getElementById('jumlah').value = result;
+		}
+		else {
+			document.getElementById('jumlah').value = stok;
+		}
 
-	 var satuan ="";
-	 if(typeof(document.getElementById('satuan')) !== "undefined" && document.getElementById('satuan') !== null ){
-		satuan = document.getElementById('satuan').value;
-	 }
-	 if(typeof(document.getElementById('jumlahmasuksebelum')) !== "undefined" && document.getElementById('jumlahmasuksebelum') !== null ){
-		 document.getElementById('jumlahmasuksebelum').textContent = jumlahlama+" "+satuan; 
-	 }
-	 document.getElementById('jumlahmasuksesudah').textContent = document.getElementById('jumlah').value+" "+satuan;
-	 document.getElementById('stoksaatini').textContent = stok+" "+satuan;
- }
+		var satuan ="";
+		if(typeof(document.getElementById('satuan')) !== "undefined" && document.getElementById('satuan') !== null ){
+			satuan = document.getElementById('satuan').value;
+		}
+		if(typeof(document.getElementById('jumlahmasuksebelum')) !== "undefined" && document.getElementById('jumlahmasuksebelum') !== null ){
+			document.getElementById('jumlahmasuksebelum').textContent = jumlahlama+" "+satuan; 
+		}
+		document.getElementById('jumlahmasuksesudah').textContent = document.getElementById('jumlah').value+" "+satuan;
+		document.getElementById('stoksaatini').textContent = stok+" "+satuan;
+	}
+}
  </script>
 										
 								

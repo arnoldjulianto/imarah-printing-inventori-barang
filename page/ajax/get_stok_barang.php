@@ -1,13 +1,13 @@
 <?php
 include("../../koneksibarang.php");
+$jumlah = "";
 $tamp =$_POST['tamp'];
 $pecah_bar = explode(".", $tamp);
 $kode_bar = $pecah_bar[0];
     $sql = "SELECT *
     FROM gudang
     where kode_barang = '$kode_bar'";
-    $result = mysqli_query($koneksi, $sql);                            
-    if (mysqli_num_rows($result) > 0) {
+    $result = mysqli_query($koneksi, $sql); 
     // output data of each row
     while($data = mysqli_fetch_assoc($result)) {
       $jumlah = $data['jumlah'];
@@ -18,22 +18,11 @@ $kode_bar = $pecah_bar[0];
       if(!ISSET($total_barang_keluar['jumlah'])) $total_barang_keluar['jumlah'] = 0;    
       if(!ISSET($total_barang_keluar_badstock['jumlah'])) $total_barang_keluar_badstock['jumlah'] = 0;    
       $jumlah = $jumlah + $total_barang_masuk['jumlah'] - $total_barang_keluar['jumlah'] - $total_barang_keluar_badstock['jumlah'] ;                           
-    ?>
-    <input id="stok" type="hidden" class="form-control" value="<?php echo $jumlah?>" />
-
- <?php
-   		}
-    } else {
-       //echo "0 results";
     }
-
      mysqli_close($koneksi);
- 
  ?>
 
-<script>
-  jQuery(document).ready(function($) {
-    sum();
-  })
-</script>
+						
+<input id="stok" type="hidden" class="form-control" value="<?=$jumlah?>" />
+
 							

@@ -46,20 +46,13 @@
 
 <script>
 jQuery(document).ready(function($) {
-  setData()
+  setData();  
   $('#cmb_barang').change(function() { // Jika Select Box id provinsi dipilih
     setData();
   });
 });
 
 function setData(){
-    Swal.fire({
-        allowOutsideClick: false,
-        showConfirmButton:false,
-        onBeforeOpen: () => {
-            Swal.showLoading()
-        }
-    });
     $('.tampung').html('');
     $('.tampung1').html('');
     var tamp = $('#cmb_barang').val(); // Ciptakan variabel provinsi
@@ -74,9 +67,7 @@ function setData(){
                 url: 'page/ajax/get_satuan.php', // File yang akan memproses data
                 data: 'tamp=' + tamp, // Data yang akan dikirim ke file pemroses
                 success: function(data) { // Jika berhasil
-                    $('.tampung1').html(data); // Berikan hasil ke id kota 
-                    sum('<?php=$jumlahsebelum?>');
-                    Swal.close()  
+                    $('.tampung1').html(data); // Berikan hasil ke id kota
                 },
                 error:function(){
                     Swal.close()

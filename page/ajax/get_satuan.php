@@ -22,6 +22,14 @@ $kode_bar = $pecah_bar[0];
      mysqli_close($koneksi);
  
  ?>
+
+ 
+
+<script>
+$(document).ready(function($) {
+  sum();
+})
+</script>
  
  
  
