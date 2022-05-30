@@ -15,72 +15,119 @@
 	<title>Sistem Inventaris Barang</title>
 
 	<!-- Bootstrap -->
-		
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom fonts for this template-->
+	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 	<style>
 		body {
-	          background: url(img/grey.jpg) no-repeat fixed;
-	          -webkit-background-size: 100% 100%;
-	          -moz-background-size: 100% 100%;
-	          -o-background-size: 100% 100%;
-	          background-size: 100% 100%;
-	        }
-		.row {
-			margin:100px auto;
-			width:300px;
-			text-align:center;
-		}
+			background-color: rgb(34, 61, 108); /* For browsers that do not support gradients */
+  			background-image: linear-gradient(to top, rgb(34, 61, 108), rgb(50, 61, 108));
+			background-repeat:no-repeat;
+			background-size:contain;  
+			display:flex; 
+			flex-direction:column; 
+			justify-content:center;
+  			min-height:100vh;
+			padding: 0px 20px 0px 20px;
+	    }
 		.login {
-			background-color:#FFFFFF;
-			padding:20px;
-			margin-top:20px;
+			display:flex;
+			flex-direction: row;
+			justify-content:space-around;
+			border-radius:5px;
+			padding:10px;
+			box-shadow: white 0px 22px 70px 4px;
+			background-color: rgb(34, 61, 108);
 		}
+		.login-img{
+			flex:1;
+			border-radius:5px;
+		}
+		.login-form{
+			flex:1;
+			display:flex;
+			flex-direction: column;
+			justify-content:center;
+			align-items:center;
+			border:1px solid white;
+			width:100%;
+		}
+		.login-title{
+			margin-bottom:5px
+		}
+		.login-subtitle{
+			margin-bottom:30px
+		}
+		@media only screen and (max-width:1200px) {
+			body {
+				background-color:white;
+				padding:10px;
+	    	}
+			.login {
+				display:flex;
+				flex-direction: column;
+				padding:px;
+			}
+			.login-form{
+				border:0px;
+			}
+		}
+
+		.copyright{
+			text-align:right;
+			color:white;
+			font-size:13px;
+			font-style:italic
+		}
+
+		hr{
+			background-color:white;
+			border:0.5px solid white;
+			margin-top:20px
+		}
+		.form-control::placeholder {
+			color:lightgrey;
+		}
+
 	</style>
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
 </head>
 <body>
-	
-	<div class="container">
-		<div class="row">
-		<div class="center">
-		<div class="login">
-				
-				
-				
-				<form role="form" action="" method="post">
-				<h3> Sistem Inventaris Barang</h3>
-				<br>
-					<div class="form-group">
-					
-					 
-						<input type="text" name="username"  class="form-control" placeholder="Masukan Username" required autofocus />
-					</div>
-					<div class="form-group">
-						<input type="password" name="password" class="form-control" placeholder="Masukan Password" required autofocus />
-					</div>
-					<!-- <div class="form-group">
-						<select name="level" class="form-control" required>
-							<option value="">Pilih Level User</option>
-							<option value="superadmin">Super Admin</option>
-							<option value="admin">Admin</option>
-							<option value="petugas">Petugas</option>
-						
-						</select>
-					</div> -->
-					<div class="form-group">
-						<input type="submit" name="login" class="btn btn-primary btn-block" value="Masuk" />
-						
-					</div>
-						<br>
+	<div class="login">
+		<image src="img/login-background.jpeg" class="login-img" >
+		<div class="login-form text-center">
+			<form role="form" action="" method="post" >
+			<h4 class="text-white login-title"> Sistem Inventaris Barang</h4>
+			<h6 class="text-white login-subtitle"> Isi form di bawah ini untuk login</h6>
 			
-				</form>
+				<div class="form-group">
+					<div class="input-group input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text bg-light"><i class="fa fa-user"></i></span>
+					</div>
+						<input type="text" name="username"  class="form-control bg-transparent text-white" placeholder="Masukan Username" required autofocus />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="input-group input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text bg-white"><i class="fa fa-key"></i></span>
+					</div>
+						<input type="password" name="password"  class="form-control bg-transparent text-white " placeholder="Masukan Password" required  />
+					</div>
+				</div>
 				
-			</div>
-		
+				<div class="form-group">
+					<input type="submit" name="login" class="btn btn-block text-white border border-white" value="Login" />
+					
+				</div>
+				<hr/>
+				<span class="copyright" >
+					&copy 2022 Imarah Printing & Advertising
+				</span>
+			</form>
 		</div>
+		
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

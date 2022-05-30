@@ -1,8 +1,7 @@
 <?php
 $koneksi = new mysqli("localhost","root","","inventori");
-$bln = $_GET['bln'] ;
-$thn = $_GET['thn'] ;
-
+$tanggal1 = $_GET['tanggal1'] ;
+$tanggal2 = $_GET['tanggal2'] ;
 if ($_GET['method'] == 'excel' )
 {?>
 
@@ -33,11 +32,7 @@ if ($_GET['method'] == 'excel' )
 	<tbody>
 	<?php
 	$no = 1;
-	$where_bulan = "";
-	//$where_jenis_gudang = "";
-	if($bln != 'all') $where_bulan = "and MONTH(tanggal) = '$bln'";
-	//if($jenis_gudang != 'all') $where_jenis_gudang = "and jenis_gudang = '$jenis_gudang'";
-	$sql = $koneksi->query("select * from barang_keluar_badstock where YEAR(tanggal) = '$thn' ".$where_bulan);
+	$sql = $koneksi->query("select * from barang_keluar_badstock where tanggal BETWEEN '$tanggal1' and '$tanggal2' ");
 	while ($data = $sql->fetch_assoc()) {
 								
 	?>		
