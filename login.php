@@ -29,6 +29,7 @@
 			justify-content:center;
   			min-height:100vh;
 			padding: 0px 20px 0px 20px;
+			overflow:hidden
 	    }
 		.login {
 			display:flex;
@@ -37,12 +38,18 @@
 			border-radius:5px;
 			padding:10px;
 			box-shadow: white 0px 22px 70px 4px;
-			background-color: rgb(34, 61, 108);
+			background-color: rgb(34, 61, 106);
+			animation: fade-in 1s ease-out;
+			animation-iteration-count: 1;
 		}
 		.login-img{
 			flex:1;
 			border-radius:5px;
+			position: relative;
+			animation: fade-in-up 2s ease-out;
+			animation-iteration-count: 1;
 		}
+		
 		.login-form{
 			flex:1;
 			display:flex;
@@ -51,7 +58,39 @@
 			align-items:center;
 			border:1px solid white;
 			width:100%;
+			margin-top:20px;
+			margin-bottom:20px;
+			padding:10px 0px 10px 0px;
+			position: relative;
+			animation: fade-in-down 2s ease-out;
+			animation-iteration-count: 1;
 		}
+
+		@keyframes fade-in {
+			from {opacity: 0}
+			to {opacity:1}
+		}
+
+		@keyframes fade-in-down {
+			from {top: -500px;}
+			to {top: 0px;}
+		}
+
+		@keyframes fade-in-up {
+			from {bottom: -500px;}
+			to {bottom: 0px;}
+		}
+
+		@keyframes fade-in-right {
+			from {left: -500px;}
+			to {left: 0px;}
+		}
+
+		@keyframes fade-in-left {
+			from {right: -500px;}
+			to {right: 0px;}
+		}
+
 		.login-title{
 			margin-bottom:5px
 		}
@@ -65,11 +104,11 @@
 	    	}
 			.login {
 				display:flex;
-				flex-direction: column;
-				padding:px;
+				flex-direction: column-reverse;
 			}
 			.login-form{
 				border:0px;
+				margin-top:30px;
 			}
 		}
 
