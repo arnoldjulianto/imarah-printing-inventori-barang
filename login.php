@@ -18,6 +18,12 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
 	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+	<!-- Sweet Alert 2 -->
+	<link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+
+	<!-- Page level custom scripts -->
+	<script src="vendor/sweetalert2/sweetalert2.all.min.js"></script>
 	<style>
 		body {
 			background-color: rgb(34, 61, 108); /* For browsers that do not support gradients */
@@ -189,10 +195,17 @@
 				window.location.href ="index.php?page=home"
 			</script>
 <?php	}
-		else {
-			echo '<center><div class="alert alert-danger">Upss...!!! Login gagal. Silakan Coba Kembali</div></center>';
-		
-		}
+		else {?>
+			<script>
+				Swal.fire({
+					icon: 'error',
+					title: 'Gagal Login',
+					text: 'Username / Password Yang Anda Masukkan Salah',
+					allowOutsideClick: false,
+					confirmButtonText:'Tutup'
+				});
+			</script>
+<?php	}
 	}
 	
 ?>
