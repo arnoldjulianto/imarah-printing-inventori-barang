@@ -100,7 +100,7 @@
 		@media only screen and (max-width:1200px) {
 			body {
 				background-color:white;
-				padding:10px;
+				padding:20px 10px 50px 10px;
 	    	}
 			.login {
 				display:flex;
@@ -134,10 +134,9 @@
 	<div class="login">
 		<image src="img/login-background.jpeg" class="login-img" >
 		<div class="login-form text-center">
-			<form role="form" action="" method="post" >
 			<h4 class="text-white login-title"> Sistem Inventaris Barang</h4>
 			<h6 class="text-white login-subtitle"> Isi form di bawah ini untuk login</h6>
-			
+			<form action="" method="post" >
 				<div class="form-group">
 					<div class="input-group input-group">
 					<div class="input-group-prepend">
@@ -158,7 +157,6 @@
 				
 				<div class="form-group">
 					<input type="submit" name="login" class="btn btn-block text-white border border-white" value="Login" />
-					
 				</div>
 				<hr/>
 				<span class="copyright" >
@@ -166,7 +164,6 @@
 				</span>
 			</form>
 		</div>
-		
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -178,8 +175,7 @@
 	$username = $_POST['username'];
 	$password = md5($_POST['password']);
 	$login = $_POST['login'];
-	//$level = $_POST['level'];
-	
+
 	if ($login) {
 		$sql = $koneksi->query("select * from users where username='$username' and password='$password'");
 		$ketemu = $sql->num_rows;
@@ -188,8 +184,11 @@
 		if ($ketemu >=1) {
 			session_start();
 			$_SESSION['id'] =$data['id'];
-			header("location:index.php?page=home");
-		}
+		?>
+			<script>
+				window.location.href ="index.php?page=home"
+			</script>
+<?php	}
 		else {
 			echo '<center><div class="alert alert-danger">Upss...!!! Login gagal. Silakan Coba Kembali</div></center>';
 		
