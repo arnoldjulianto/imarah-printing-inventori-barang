@@ -1,5 +1,6 @@
   
 <?php 
+
 $get_id_transaksi = $_GET['id_transaksi'];
 $koneksi = new mysqli("localhost","root","","inventori");
 $format = "";
@@ -10,6 +11,11 @@ $nama_barang = "";
 $pengirim = "";
 $jumlah = 0;
 $satuan = "";
+$id_user="";
+if ($_SESSION['id']) {
+	$id_user = $_SESSION['id'];
+}
+
 if(!ISSET($get_id_transaksi)){
 	$no = mysqli_query($koneksi, "select id_transaksi from barang_masuk order by id_transaksi desc");
 	$idtran = mysqli_fetch_array($no);
@@ -177,7 +183,7 @@ if (isset($_POST['simpan'])) {
 	$current_stok = $_POST['jumlah'];
 
 	if(!ISSET($get_id_transaksi)){
-		$sql = $koneksi->query("insert into barang_masuk (id_transaksi, jenis_gudang, tanggal, kode_barang, nama_barang, jumlah, satuan, pengirim) values('$id_transaksi','$jenis_gudang','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$pengirim')");
+		$sql = $koneksi->query("insert into barang_masuk (id_transaksi, jenis_gudang, tanggal, kode_barang, nama_barang, jumlah, satuan, pengirim, id_user) values('$id_transaksi','$jenis_gudang','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$pengirim', '$id_user')");
 			if ($sql) {
 			?>
 				<script type="text/javascript">
@@ -189,7 +195,7 @@ if (isset($_POST['simpan'])) {
 		}
 	}
 	else {
-		$sql = $koneksi->query("update barang_masuk set jenis_gudang = '$jenis_gudang', tanggal = '$tanggal', kode_barang = '$kode_barang', nama_barang = '$nama_barang', jumlah = $jumlah, satuan = '$satuan' , pengirim = '$pengirim' where id_transaksi = '$id_transaksi' ");
+		$sql = $koneksi->query("update barang_masuk set jenis_gudang = '$jenis_gudang', tanggal = '$tanggal', kode_barang = '$kode_barang', nama_barang = '$nama_barang', jumlah = $jumlah, satuan = '$satuan' , pengirim = '$pengirim', id_user = '$id_user' where id_transaksi = '$id_transaksi' ");
 		if ($sql) {
 		?>
 			<script type="text/javascript">

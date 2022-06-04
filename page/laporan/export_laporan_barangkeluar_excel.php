@@ -10,7 +10,7 @@ if ($_GET['method'] == 'excel' )
 	header("Content-Disposition: attachment; filename=Laporan_Barang_Keluar (".date('d-m-Y').").xls");
 ?>	
 	<center>
-		<h2>Laporan Barang Keluar <?php if($bln <> "all") echo "Bulan ".$bln;?> Tahun <?php echo $thn;?></h2>
+		<h2>Laporan Barang Keluar Mulai Tanggal <?=$tanggal1?> Hingga Tanggal <?=$tanggal2?>?></h2>
 	</center>   
 <?php 
 }
@@ -27,12 +27,13 @@ if ($_GET['method'] == 'excel' )
 			<th>Jumlah Keluar</th>
 			<th>Satuan Barang</th>
 			<th>Tujuan</th>
+			<th>Diinput Oleh</th>
 		</tr>
 	</thead>
 	<tbody>
 	<?php
 	$no = 1;
-	$sql = $koneksi->query("select * from barang_keluar where tanggal BETWEEN '$tanggal1' and '$tanggal2' ");
+	$sql = $koneksi->query("select * from barang_keluar join users on users.id = barang_keluar.id_user where tanggal BETWEEN '$tanggal1' and '$tanggal2' ");
 	while ($data = $sql->fetch_assoc()) {
 								
 	?>		
@@ -46,6 +47,7 @@ if ($_GET['method'] == 'excel' )
 			<td><?php echo $data['jumlah'] ?></td>
 			<td><?php echo $data['satuan'] ?></td>
 			<td><?php echo $data['tujuan'] ?></td>
+			<td><?php echo $data['username'] ?></td>
 			</tr>
 	<?php 
 	}

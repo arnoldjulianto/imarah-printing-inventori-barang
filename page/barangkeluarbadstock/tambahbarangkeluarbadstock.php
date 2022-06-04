@@ -6,7 +6,7 @@
 	$tanggal_keluar = $tanggal_keluar = date("Y-m-d");
 	$kode_barang = "";
 	$nama_barang = "";
-	$tujuan = "";
+	$keterangan = "";
 	$jumlah = "";
 	$satuan = "";
 	$tanggal_keluar = date("Y-m-d");
@@ -40,9 +40,13 @@
 		$tanggal_keluar = $data['tanggal'];
 		$kode_barang = $data['kode_barang'];
 		$nama_barang = $data['nama_barang'];
-		$tujuan = $data['tujuan'];
+		$keterangan = $data['keterangan'];
 		$jumlah = $data['jumlah'];
 		$satuan = $data['satuan'];
+	}
+	$id_user="";
+	if ($_SESSION['id']) {
+		$id_user = $_SESSION['id'];
 	}
 ?>	
 
@@ -88,9 +92,9 @@
 					</div>
 
 					<div class="form-group">
-						<label for="">Tujuan</label>
+						<label for="">Keterangan</label>
 						<div class="form-line">
-							<input type="text" name="tujuan" class="form-control" value="<?=$tujuan?>" required/>	 
+							<input type="text" name="keterangan" class="form-control" value="<?=$keterangan?>" required/>	 
 						</div>
 					</div>
 
@@ -164,11 +168,11 @@ if (isset($_POST['simpan'])) {
 	$jumlah= $_POST['jumlahbadstock'];
 	if($jumlah == "") $jumlah = $_POST['jumlahlama'];
 	$satuan= $_POST['satuan'];
-	$tujuan= $_POST['tujuan'];
+	$keterangan= $_POST['keterangan'];
 	$total= $_POST['total'];
 	if(!ISSET($get_id_transaksi)){
 		$sql = $koneksi->query("insert into barang_keluar_badstock (id_transaksi, nomor_spk
-		, jenis_gudang, tanggal, kode_barang, nama_barang, jumlah, satuan, tujuan) values('$id_transaksi', '$nomor_spk', '$jenis_gudang','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$tujuan')");
+		, jenis_gudang, tanggal, kode_barang, nama_barang, jumlah, satuan, keterangan, id_user) values('$id_transaksi', '$nomor_spk', '$jenis_gudang','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$keterangan', '$id_user')");
 		if($sql ) {?>
 			<script type="text/javascript">
 				alert("Simpan Data Berhasil");
@@ -178,7 +182,7 @@ if (isset($_POST['simpan'])) {
 		}
 	}
 	else{
-		$sql = $koneksi->query("update barang_keluar_badstock set nomor_spk = '$nomor_spk', jenis_gudang = '$jenis_gudang', tanggal = '$tanggal',kode_barang = '$kode_barang',nama_barang = '$nama_barang', jumlah = '$jumlah',satuan = '$satuan',tujuan = '$tujuan' where id_transaksi = '$id_transaksi' ");
+		$sql = $koneksi->query("update barang_keluar_badstock set nomor_spk = '$nomor_spk', jenis_gudang = '$jenis_gudang', tanggal = '$tanggal',kode_barang = '$kode_barang',nama_barang = '$nama_barang', jumlah = '$jumlah',satuan = '$satuan',keterangan = '$keterangan', id_user = '$id_user' where id_transaksi = '$id_transaksi' ");
 		if($sql ) {?>
 			<script type="text/javascript">
 			alert("Simpan Data Berhasil");

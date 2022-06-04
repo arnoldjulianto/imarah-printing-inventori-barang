@@ -22,6 +22,7 @@
 											<th>Jenis Barang</th>
 											<th>Stok</th>
 											<th>Satuan</th>
+											<th>Diinput Oleh</th>
 											<th>Pengaturan</th>
                                         </tr>
 										</thead>
@@ -31,7 +32,7 @@
                     <?php 
 									
 									$no = 1;
-									$sql = $koneksi->query("select * from gudang");
+									$sql = $koneksi->query("select * from gudang join users on users.id = gudang.id_user");
 									while ($data = $sql->fetch_assoc()) {
 										$jumlah = $data['jumlah'];
 										$total_barang_masuk = $koneksi->query("select SUM(jumlah) as jumlah from barang_masuk where kode_barang = '$data[kode_barang]' ")->fetch_assoc();
@@ -50,6 +51,7 @@
 											<td><?php echo $data['jenis_barang'] ?></td>
 											<td><?php echo $jumlah?></td>
 											<td><?php echo $data['satuan'] ?></td>
+											<td><?php echo $data['username'] ?></td>
 											<td width=200 >
 											<a href="?page=gudang&aksi=tambahgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-success btn-sm" >Ubah</a>
 											<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=gudang&aksi=hapusgudang&kode_barang=<?php echo $data['kode_barang'] ?>" class="btn btn-danger btn-sm" >Hapus</a>

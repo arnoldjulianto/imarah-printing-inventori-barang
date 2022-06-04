@@ -51,7 +51,7 @@ if(empty($_SESSION['id'])){
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand Kiri-->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index3.php">

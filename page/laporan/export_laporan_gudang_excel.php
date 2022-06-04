@@ -19,12 +19,13 @@
 											<th>Jenis Barang</th>
 											<th>Jumlah Barang</th>
 											<th>Satuan</th>
+											<th>Diinput Oleh</th>
                                         </tr>
 	
  <?php 
 									
 									$no = 1;
-									$sql = $koneksi->query("select * from gudang");
+									$sql = $koneksi->query("select * from gudang join users on users.id = gudang.id_user");
 									while ($data = $sql->fetch_assoc()) {
 										$jumlah = $data['jumlah'];
 										$total_barang_masuk = $koneksi->query("select SUM(jumlah) as jumlah from barang_masuk where kode_barang = '$data[kode_barang]' ")->fetch_assoc();
@@ -41,14 +42,9 @@
 											<td><?php echo $data['kode_barang'] ?></td>
 											<td><?php echo $data['nama_barang'] ?></td>
 											<td><?php echo $data['jenis_barang'] ?></td>
-											
 											<td><?php echo $jumlah ?></td>
 											<td><?php echo $data['satuan'] ?></td>
-								
-
-								
-
-										
+											<td><?php echo $data['username'] ?></td>
                                         </tr>
 									<?php }?>
 

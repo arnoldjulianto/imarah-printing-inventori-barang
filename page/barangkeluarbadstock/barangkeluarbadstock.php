@@ -24,7 +24,8 @@
 							<th>Nama Barang</th>
 							<th>Jumlah</th>
 							<th>Satuan</th>
-							<th>Tujuan</th>
+							<th>Keterangan</th>
+							<th>Diinput Oleh</th>
 							<th>Pengaturan</th>
 							
 						</tr>
@@ -34,7 +35,7 @@
                     <?php 
 									
 									$no = 1;
-									$sql = $koneksi->query("select * from barang_keluar_badstock");
+									$sql = $koneksi->query("select * from barang_keluar_badstock join users on users.id = barang_keluar_badstock.id_user");
 									while ($data = $sql->fetch_assoc()) {
 										
 									?>
@@ -48,7 +49,8 @@
 											<td><?php echo $data['nama_barang'] ?></td>
 											<td><?php echo $data['jumlah'] ?></td>
 											<td><?php echo $data['satuan'] ?></td>
-											<td><?php echo $data['tujuan'] ?></td>
+											<td><?php echo $data['keterangan'] ?></td>
+											<td><?php echo $data['username'] ?></td>
 											<td style="min-width:150px">
 												<a href="?page=barangkeluarbadstock&aksi=tambahbarangkeluarbadstock&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</a>
 												<a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="?page=barangkeluarbadstock&aksi=hapusbarangkeluarbadstock&id_transaksi=<?php echo $data['id_transaksi'] ?>" class="btn btn-danger btn-sm" ><i class="fa fa-trash"></i> Hapus</a>

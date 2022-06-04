@@ -33,11 +33,16 @@ else {
 	$jumlah = $data['jumlah'];
 	$total_barang_masuk = $koneksi->query("select SUM(jumlah) as jumlah from barang_masuk where kode_barang = '$_GET[kode_barang]' ")->fetch_assoc();
 	$total_barang_keluar = $koneksi->query("select SUM(jumlah) as jumlah from barang_keluar where kode_barang = '$_GET[kode_barang]' ")->fetch_assoc();
+	$total_barang_keluar_badstock = $koneksi->query("select SUM(jumlah) as jumlah from barang_keluar_badstock where kode_barang = '$data[kode_barang]' ")->fetch_assoc();
 	if(!ISSET($total_barang_masuk['jumlah'])) $total_barang_masuk['jumlah'] = 0;
-	if(!ISSET($total_barang_keluar['jumlah'])) $total_barang_keluar['jumlah'] = 0;    
-	$jumlah = $jumlah + $total_barang_masuk['jumlah'] - $total_barang_keluar['jumlah']; 
+	if(!ISSET($total_barang_keluar['jumlah'])) $total_barang_keluar['jumlah'] = 0;  
+	if(!ISSET($total_barang_keluar_badstock['jumlah'])) $total_barang_keluar_badstock['jumlah'] = 0;   
+	$jumlah = $jumlah + $total_barang_masuk['jumlah'] - $total_barang_keluar['jumlah'] - $total_barang_keluar_badstock['jumlah']; 
 }
-
+$id_user="";
+if ($_SESSION['id']) {
+	$id_user = $_SESSION['id'];
+}
 ?>
 <form method="POST" enctype="multipart/form-data">
 <select name="jenis_gudang" id="cmb_jenis_gudang" style="visibility:hidden" >
@@ -127,7 +132,7 @@ if (isset($_POST['simpan'])) {
 		$jumlah= $_POST['jumlah'];
 		$satuan= $_POST['satuan'];
 		if(!ISSET($get_kode_barang)){
-			$sql = $koneksi->query("insert into gudang (kode_barang, jenis_gudang, nama_barang, jenis_barang, jumlah, satuan ) values('$kode_barang', '$jenis_gudang', '$nama_barang','$jenis_barang','$jumlah','$satuan')");
+			$sql = $koneksi->query("insert into gudang (kode_barang, jenis_gudang, nama_barang, jenis_barang, jumlah, satuan, id_user ) values('$kode_barang', '$jenis_gudang', '$nama_barang','$jenis_barang','$jumlah','$satuan', '$id_user')");
 			if ($sql) {
 				?>
 				
@@ -140,7 +145,7 @@ if (isset($_POST['simpan'])) {
 			}
 		}
 		else{
-			$sql = $koneksi->query("update gudang set jenis_gudang = '$jenis_gudang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang', jumlah = $jumlah, satuan = '$satuan' where kode_barang = '$kode_barang' ");
+			$sql = $koneksi->query("update gudang set jenis_gudang = '$jenis_gudang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang', jumlah = $jumlah, satuan = '$satuan', id_user = '$id_user' where kode_barang = '$kode_barang' ");
 			if ($sql) {?>
 				<script type="text/javascript">
 					alert("Data Berhasil Disimpan");

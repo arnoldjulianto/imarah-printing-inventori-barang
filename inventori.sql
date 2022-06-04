@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Bulan Mei 2022 pada 06.18
+-- Waktu pembuatan: 04 Jun 2022 pada 17.26
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.4.26
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `barang_keluar` (
   `id` int(11) NOT NULL,
   `id_transaksi` varchar(100) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `nomor_spk` varchar(100) NOT NULL,
   `jenis_gudang` varchar(100) NOT NULL,
   `tanggal` date NOT NULL,
@@ -49,6 +50,7 @@ CREATE TABLE `barang_keluar` (
 CREATE TABLE `barang_keluar_badstock` (
   `id` int(11) NOT NULL,
   `id_transaksi` varchar(100) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `nomor_spk` varchar(100) NOT NULL,
   `jenis_gudang` varchar(100) NOT NULL,
   `tanggal` date NOT NULL,
@@ -56,7 +58,7 @@ CREATE TABLE `barang_keluar_badstock` (
   `nama_barang` varchar(100) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `satuan` varchar(50) NOT NULL,
-  `tujuan` varchar(100) NOT NULL
+  `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -68,6 +70,7 @@ CREATE TABLE `barang_keluar_badstock` (
 CREATE TABLE `barang_masuk` (
   `id` int(11) NOT NULL,
   `id_transaksi` varchar(100) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `jenis_gudang` varchar(100) NOT NULL,
   `tanggal` date NOT NULL,
   `kode_barang` varchar(100) NOT NULL,
@@ -85,6 +88,7 @@ CREATE TABLE `barang_masuk` (
 
 CREATE TABLE `gudang` (
   `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `kode_barang` varchar(100) NOT NULL,
   `jenis_gudang` varchar(100) NOT NULL,
   `nama_barang` varchar(100) NOT NULL,
@@ -92,14 +96,6 @@ CREATE TABLE `gudang` (
   `jumlah` varchar(250) NOT NULL,
   `satuan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `gudang`
---
-
-INSERT INTO `gudang` (`id`, `kode_barang`, `jenis_gudang`, `nama_barang`, `jenis_barang`, `jumlah`, `satuan`) VALUES
-(18, 'BAR-0522001', 'Imarah Printing', 'Buavita', 'Minuman', '100', 'Pack'),
-(19, 'BAR-0522002', 'Imarah Printing', 'Chitato', 'Makanan', '100', 'PCS');
 
 -- --------------------------------------------------------
 
@@ -409,7 +405,8 @@ CREATE TABLE `user_sub_menu_3` (
 -- Indeks untuk tabel `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kode_barang` (`kode_barang`);
 
 --
 -- Indeks untuk tabel `barang_keluar_badstock`
@@ -421,13 +418,15 @@ ALTER TABLE `barang_keluar_badstock`
 -- Indeks untuk tabel `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kode_barang` (`kode_barang`);
 
 --
 -- Indeks untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode_barang` (`kode_barang`);
 
 --
 -- Indeks untuk tabel `jenis_barang`
@@ -550,7 +549,7 @@ ALTER TABLE `barang_masuk`
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_barang`

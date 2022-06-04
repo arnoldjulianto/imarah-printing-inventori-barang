@@ -44,6 +44,10 @@
 		$jumlah = $data['jumlah'];
 		$satuan = $data['satuan'];
 	}
+	$id_user="";
+	if ($_SESSION['id']) {
+		$id_user = $_SESSION['id'];
+	}
 ?>	
 
 <form method="POST" enctype="multipart/form-data">
@@ -168,7 +172,7 @@ if (isset($_POST['simpan'])) {
 	$total= $_POST['total'];
 	if(!ISSET($get_id_transaksi)){
 		$sql = $koneksi->query("insert into barang_keluar (id_transaksi, nomor_spk
-		, jenis_gudang, tanggal, kode_barang, nama_barang, jumlah, satuan, tujuan) values('$id_transaksi', '$nomor_spk', '$jenis_gudang','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$tujuan')");
+		, jenis_gudang, tanggal, kode_barang, nama_barang, jumlah, satuan, tujuan, id_user) values('$id_transaksi', '$nomor_spk', '$jenis_gudang','$tanggal','$kode_barang','$nama_barang','$jumlah','$satuan','$tujuan', '$id_user')");
 		if($sql ) {?>
 			<script type="text/javascript">
 				alert("Simpan Data Berhasil");
@@ -178,7 +182,7 @@ if (isset($_POST['simpan'])) {
 		}
 	}
 	else{
-		$sql = $koneksi->query("update barang_keluar set nomor_spk = '$nomor_spk', jenis_gudang = '$jenis_gudang', tanggal = '$tanggal',kode_barang = '$kode_barang',nama_barang = '$nama_barang', jumlah = '$jumlah',satuan = '$satuan',tujuan = '$tujuan' where id_transaksi = '$id_transaksi' ");
+		$sql = $koneksi->query("update barang_keluar set nomor_spk = '$nomor_spk', jenis_gudang = '$jenis_gudang', tanggal = '$tanggal',kode_barang = '$kode_barang',nama_barang = '$nama_barang', jumlah = '$jumlah',satuan = '$satuan',tujuan = '$tujuan', id_user = '$id_user' where id_transaksi = '$id_transaksi' ");
 		if($sql ) {?>
 			<script type="text/javascript">
 			alert("Simpan Data Berhasil");
