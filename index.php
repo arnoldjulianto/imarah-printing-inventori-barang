@@ -54,7 +54,7 @@ if(empty($_SESSION['id'])){
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand Kiri-->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index3.php">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php?page=home&aksi=">
         <!-- LOGO -->
         <div class="sidebar-brand-icon rotate-n-15">
           <!-- <i class="fas fa-building"></i> -->

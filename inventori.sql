@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Jun 2022 pada 17.26
+-- Waktu pembuatan: 11 Jun 2022 pada 05.51
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.4.26
 
@@ -96,6 +96,15 @@ CREATE TABLE `gudang` (
   `jumlah` varchar(250) NOT NULL,
   `satuan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `gudang`
+--
+
+INSERT INTO `gudang` (`id`, `id_user`, `kode_barang`, `jenis_gudang`, `nama_barang`, `jenis_barang`, `jumlah`, `satuan`) VALUES
+(1, 26, 'BAR-0622001', 'Imarah Printing', 'Indomie Goreng', 'Makanan', '100', 'Pack'),
+(2, 26, 'BAR-0622002', 'Imarah Printing', 'Sambal ABC', 'Makanan', '250', 'PCS'),
+(3, 26, 'BAR-0622003', 'Imarah Printing', 'Yakult', 'Minuman', '150', 'Pack');
 
 -- --------------------------------------------------------
 
@@ -206,7 +215,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nik`, `nama`, `alamat`, `telepon`, `username`, `password`, `level`, `foto`) VALUES
 (26, '1001', 'Superadmin', '', '08999444000', 'superadmin', '17c4520f6cfd1ab53d8745e84681eb49', 'superadmin', 'teacher4.png'),
 (27, '10001', 'admin', '', '0986660000', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'w.jpg'),
-(32, '1609054107', 'asd', '', '12313', 'asd', '7815696ecbf1c96e6894b779456d330e', 'petugas', '2.JPG'),
+(32, '1609054107', 'petugas', '', '12313', 'petugas', 'afb91ef692fd08c445e8cb1bab2ccf9c', 'petugas', 'teacher4.png'),
 (33, '123', '123', '', '123', '123', '202cb962ac59075b964b07152d234b70', 'petugas', 'S6.jpg');
 
 -- --------------------------------------------------------
@@ -230,7 +239,12 @@ INSERT INTO `user_access_menu` (`id_user_access_menu`, `level`, `id_menu`) VALUE
 (2, 'superadmin', 2),
 (3, 'superadmin', 3),
 (4, 'superadmin', 4),
-(5, 'superadmin', 5);
+(5, 'superadmin', 5),
+(6, 'petugas', 1),
+(7, 'petugas', 0),
+(8, 'petugas', 3),
+(9, 'petugas', 4),
+(10, 'petugas', 5);
 
 -- --------------------------------------------------------
 
@@ -261,7 +275,20 @@ INSERT INTO `user_access_sub_menu_1` (`id_user_access_sub_menu_1`, `level`, `id_
 (10, 'superadmin', 11),
 (11, 'superadmin', 12),
 (12, 'superadmin', 13),
-(13, 'superadmin', 9);
+(13, 'superadmin', 9),
+(14, 'petugas', 1),
+(15, 'petugas', 2),
+(16, 'petugas', 3),
+(17, 'petugas', 4),
+(18, 'petugas', 5),
+(19, 'petugas', 6),
+(20, 'petugas', 7),
+(21, 'petugas', 8),
+(22, 'petugas', 10),
+(23, 'petugas', 11),
+(24, 'petugas', 12),
+(25, 'petugas', 13),
+(26, 'petugas', 9);
 
 -- --------------------------------------------------------
 
@@ -549,13 +576,13 @@ ALTER TABLE `barang_masuk`
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_barang`
 --
 ALTER TABLE `jenis_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_gudang`
@@ -585,13 +612,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id_user_access_menu` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user_access_menu` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_access_sub_menu_1`
 --
 ALTER TABLE `user_access_sub_menu_1`
-  MODIFY `id_user_access_sub_menu_1` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_user_access_sub_menu_1` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_access_sub_menu_2`
