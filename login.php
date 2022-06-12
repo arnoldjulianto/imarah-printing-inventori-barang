@@ -190,6 +190,7 @@
 		if ($ketemu >=1) {
 			session_start();
 			$_SESSION['id'] =$data['id'];
+			$_SESSION['level'] =$data['level'];
 		?>
 			<script>
 				window.location.href ="index.php?page=home"

@@ -246,7 +246,7 @@ if(empty($_SESSION['id'])){
               }
     ?>
       <!-- Nav Item - Dashboard -->
-          <a class="nav-link  <?=$collapsed?>" <?php echo $target; ?> data-target="#collapseTwo<?= $i ?>">
+          <a class="nav-link  <?=$collapsed?>" <?php echo $target; ?> data-target="#collapseLaporan<?= $i ?>">
                 <i class="<?php echo $m['icon_1']?>"></i> 
                 <span><?= $m['menu']; ?></span>
           </a>
@@ -255,7 +255,7 @@ if(empty($_SESSION['id'])){
             $querySubMenu1 = $koneksi->query("SELECT * FROM user_sub_menu_1, user_menu, user_access_sub_menu_1 WHERE user_sub_menu_1.id_menu = user_menu.id_menu and user_menu.id_menu = '$menuId' and user_sub_menu_1.id_sub_menu_1 = user_access_sub_menu_1.id_sub_menu_1 and user_access_sub_menu_1.level = '$level' order by urutan_sub_menu_1 asc ");
             if($querySubMenu1->num_rows > 0) {
             ?>
-                  <div id="collapseTwo<?= $i; ?>" <?php echo $collapse_show ?> class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div id="collapseLaporan<?= $i; ?>" <?php echo $collapse_show ?> class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                           <h6 class="collapse-header">Menu:</h6>
                           <?php while ($sm1 = $querySubMenu1->fetch_assoc()) {
