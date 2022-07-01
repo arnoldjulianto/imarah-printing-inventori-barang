@@ -5,7 +5,7 @@ $tamp =$_POST['tamp'];
 $pecah_bar = explode(".", $tamp);
 $kode_bar = $pecah_bar[0];
     $sql = "SELECT *
-    FROM gudang
+    FROM barang
     where kode_barang = '$kode_bar'";
     $result = mysqli_query($koneksi, $sql); 
     // output data of each row

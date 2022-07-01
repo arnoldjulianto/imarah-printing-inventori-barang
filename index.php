@@ -59,7 +59,7 @@ if(empty($_SESSION['id'])){
         <div class="sidebar-brand-icon rotate-n-15">
           <!-- <i class="fas fa-building"></i> -->
         </div>
-        <div class="sidebar-brand-text mx-2">PT. IMARA PRINTING</div>
+        <div class="sidebar-brand-text mx-2">CV IMARA PRINTING</div>
       </a>
 
 	  <!-- Divider -->

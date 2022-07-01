@@ -3,7 +3,7 @@ $get_kode_barang = $_GET['kode_barang'];
 $format = $nama_barang = $jenis_barang = $satuan = $jumlah = $jenis_gudang = "";
 $koneksi = new mysqli("localhost","root","","inventori");
 if(!ISSET($get_kode_barang)){
-	$no = mysqli_query($koneksi, "select kode_barang from gudang order by kode_barang desc");
+	$no = mysqli_query($koneksi, "select kode_barang from barang order by kode_barang desc");
 	$kdbarang = mysqli_fetch_array($no);
 	$kode = $kdbarang['kode_barang'];
 
@@ -23,7 +23,7 @@ if(!ISSET($get_kode_barang)){
 }
 else {
 	$kode_barang = $_GET['kode_barang'];
-	$sql = mysqli_query($koneksi, "select * from gudang where kode_barang = '$kode_barang' ");
+	$sql = mysqli_query($koneksi, "select * from barang where kode_barang = '$kode_barang' ");
 	$data = mysqli_fetch_assoc($sql);
 	$format = $data['kode_barang'];
 	$jenis_gudang = $data['jenis_gudang'];

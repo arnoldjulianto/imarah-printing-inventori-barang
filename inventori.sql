@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Jun 2022 pada 05.51
+-- Waktu pembuatan: 01 Jul 2022 pada 11.30
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.4.26
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `inventori`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `barang`
+--
+
+CREATE TABLE `barang` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `kode_barang` varchar(100) NOT NULL,
+  `jenis_gudang` varchar(100) NOT NULL,
+  `nama_barang` varchar(100) NOT NULL,
+  `jenis_barang` varchar(100) NOT NULL,
+  `jumlah` varchar(250) NOT NULL,
+  `satuan` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -79,32 +96,6 @@ CREATE TABLE `barang_masuk` (
   `jumlah` varchar(100) NOT NULL,
   `satuan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `gudang`
---
-
-CREATE TABLE `gudang` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `kode_barang` varchar(100) NOT NULL,
-  `jenis_gudang` varchar(100) NOT NULL,
-  `nama_barang` varchar(100) NOT NULL,
-  `jenis_barang` varchar(100) NOT NULL,
-  `jumlah` varchar(250) NOT NULL,
-  `satuan` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `gudang`
---
-
-INSERT INTO `gudang` (`id`, `id_user`, `kode_barang`, `jenis_gudang`, `nama_barang`, `jenis_barang`, `jumlah`, `satuan`) VALUES
-(1, 26, 'BAR-0622001', 'Imarah Printing', 'Indomie Goreng', 'Makanan', '100', 'Pack'),
-(2, 26, 'BAR-0622002', 'Imarah Printing', 'Sambal ABC', 'Makanan', '250', 'PCS'),
-(3, 26, 'BAR-0622003', 'Imarah Printing', 'Yakult', 'Minuman', '150', 'Pack');
 
 -- --------------------------------------------------------
 
@@ -235,11 +226,11 @@ CREATE TABLE `user_access_menu` (
 --
 
 INSERT INTO `user_access_menu` (`id_user_access_menu`, `level`, `id_menu`) VALUES
-(1, 'superadmin', 1),
-(2, 'superadmin', 2),
-(3, 'superadmin', 3),
-(4, 'superadmin', 4),
-(5, 'superadmin', 5),
+(1, 'admin', 1),
+(2, 'admin', 2),
+(3, 'admin', 3),
+(4, 'admin', 4),
+(5, 'admin', 5),
 (6, 'petugas', 1),
 (7, 'petugas', 0),
 (8, 'petugas', 3),
@@ -263,19 +254,19 @@ CREATE TABLE `user_access_sub_menu_1` (
 --
 
 INSERT INTO `user_access_sub_menu_1` (`id_user_access_sub_menu_1`, `level`, `id_sub_menu_1`) VALUES
-(1, 'superadmin', 1),
-(2, 'superadmin', 2),
-(3, 'superadmin', 3),
-(4, 'superadmin', 4),
-(5, 'superadmin', 5),
-(6, 'superadmin', 6),
-(7, 'superadmin', 7),
-(8, 'superadmin', 8),
-(9, 'superadmin', 10),
-(10, 'superadmin', 11),
-(11, 'superadmin', 12),
-(12, 'superadmin', 13),
-(13, 'superadmin', 9),
+(1, 'admin', 1),
+(2, 'admin', 2),
+(3, 'admin', 3),
+(4, 'admin', 4),
+(5, 'admin', 5),
+(6, 'admin', 6),
+(7, 'admin', 7),
+(8, 'admin', 8),
+(9, 'admin', 10),
+(10, 'admin', 11),
+(11, 'admin', 12),
+(12, 'admin', 13),
+(13, 'admin', 9),
 (14, 'petugas', 1),
 (15, 'petugas', 2),
 (16, 'petugas', 3),
@@ -331,7 +322,8 @@ CREATE TABLE `user_level` (
 --
 
 INSERT INTO `user_level` (`id`, `level`, `keterangan`) VALUES
-(1, 'superadmin', 'All Akses');
+(1, 'superadmin', 'All Akses'),
+(2, 'admin', 'All Akses');
 
 -- --------------------------------------------------------
 
@@ -429,6 +421,13 @@ CREATE TABLE `user_sub_menu_3` (
 --
 
 --
+-- Indeks untuk tabel `barang`
+--
+ALTER TABLE `barang`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode_barang` (`kode_barang`);
+
+--
 -- Indeks untuk tabel `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
@@ -447,13 +446,6 @@ ALTER TABLE `barang_keluar_badstock`
 ALTER TABLE `barang_masuk`
   ADD PRIMARY KEY (`id`),
   ADD KEY `kode_barang` (`kode_barang`);
-
---
--- Indeks untuk tabel `gudang`
---
-ALTER TABLE `gudang`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `kode_barang` (`kode_barang`);
 
 --
 -- Indeks untuk tabel `jenis_barang`
@@ -555,6 +547,12 @@ ALTER TABLE `user_sub_menu_3`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `barang`
+--
+ALTER TABLE `barang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
@@ -571,12 +569,6 @@ ALTER TABLE `barang_keluar_badstock`
 --
 ALTER TABLE `barang_masuk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `gudang`
---
-ALTER TABLE `gudang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_barang`
@@ -636,7 +628,7 @@ ALTER TABLE `user_access_sub_menu_3`
 -- AUTO_INCREMENT untuk tabel `user_level`
 --
 ALTER TABLE `user_level`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_menu`

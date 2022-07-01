@@ -32,7 +32,7 @@
                     <?php 
 									
 									$no = 1;
-									$sql = $koneksi->query("select * from gudang join users on users.id = gudang.id_user");
+									$sql = $koneksi->query("select * from barang join users on users.id = barang.id_user");
 									while ($data = $sql->fetch_assoc()) {
 										$jumlah = $data['jumlah'];
 										$total_barang_masuk = $koneksi->query("select SUM(jumlah) as jumlah from barang_masuk where kode_barang = '$data[kode_barang]' ")->fetch_assoc();

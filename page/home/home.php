@@ -6,7 +6,7 @@ $total_users = mysqli_num_rows($users);
 $supplier = mysqli_query($koneksi, "select id from tb_supplier");
 $total_supplier = mysqli_num_rows($supplier);
 
-$gudang = mysqli_query($koneksi, "select id from gudang");
+$gudang = mysqli_query($koneksi, "select id from barang");
 $total_gudang = mysqli_num_rows($gudang);
 
 $barang_masuk = mysqli_query($koneksi, "select id from barang_masuk");
@@ -32,6 +32,8 @@ $total_barang_keluar_badstock = mysqli_num_rows($barang_keluar_badstock);
           <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
+            <?php 
+            if($_SESSION['level'] == 'admin'  ) {?>
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
@@ -51,6 +53,7 @@ $total_barang_keluar_badstock = mysqli_num_rows($barang_keluar_badstock);
                 </div>
               </div>
             </div>
+            <?php }?>
 			
 			
 			  <div class="col-xl-3 col-md-6 mb-4">

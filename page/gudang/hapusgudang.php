@@ -1,7 +1,7 @@
  <?php
  
  $kode_barang = $_GET['kode_barang'];
- $sql = $koneksi->query("delete from gudang where kode_barang = '$kode_barang'");
+ $sql = $koneksi->query("delete from barang where kode_barang = '$kode_barang'");
 
  if ($sql) {
  

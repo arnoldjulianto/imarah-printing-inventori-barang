@@ -5,7 +5,7 @@
   $id_transaksi =$_POST['id_transaksi'];
   
   $sql = "SELECT *
-  FROM gudang
+  FROM barang
   where jenis_gudang = '$jenis_gudang'";
   $result = mysqli_query($koneksi, $sql);                            
   if (mysqli_num_rows($result) > 0) {
