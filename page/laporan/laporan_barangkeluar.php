@@ -31,7 +31,7 @@
         <input type="hidden" id="method" name="method" value="" />
         <div class="col-md-3" style="display:flex;align-items:center">
             <button style="margin-right:10px" type="submit" class="btn btn-primary btn-sm" onClick="$('#method').val('')" ><i class="fa fa-filter"></i> Tampilkan</button>
-            <?php if($_SESSION['level'] == 'superadmin' ) { ?>
+            <?php if($_SESSION['level'] == 'admin' ) { ?>
               <button type="submit" class="btn btn-success btn-sm" onClick="$('#method').val('excel')"><i class="fa fa-file-excel"></i> Excel</button>
             <?php }?>
         </div>

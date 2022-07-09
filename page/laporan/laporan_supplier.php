@@ -49,7 +49,7 @@
 
 										   </tbody>
                                 </table>
-                <?php if($_SESSION['level'] == 'superadmin' ) { ?>
+                <?php if($_SESSION['level'] == 'admin' ) { ?>
 								    <a href="page/laporan/export_laporan_supplier_excel.php"  class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i>ExportToExcel</a>
                 <?php }?>  
                   </tbody>

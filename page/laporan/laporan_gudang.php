@@ -28,7 +28,7 @@
                     <?php 
 									
 									$no = 1;
-									$sql = $koneksi->query("select * from gudang join users on users.id = gudang.id_user");
+									$sql = $koneksi->query("select * from barang join users on users.id = barang.id_user");
 									while ($data = $sql->fetch_assoc()) {
                     $jumlah = $data['jumlah'];
 										$total_barang_masuk = $koneksi->query("select SUM(jumlah) as jumlah from barang_masuk where kode_barang = '$data[kode_barang]' ")->fetch_assoc();
@@ -53,7 +53,7 @@
 
 										   </tbody>
                                 </table>
-                <?php if($_SESSION['level'] == 'superadmin' ) { ?>                
+                <?php if($_SESSION['level'] == 'admin' ) { ?>                
 							  	<a href="page/laporan/export_laporan_gudang_excel.php"  class="btn btn-primary" style="margin-top:8 px"><i class="fa fa-print"></i>ExportToExcel</a>
 								<?php }?>
                   </tbody>

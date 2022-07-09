@@ -132,7 +132,7 @@ if (isset($_POST['simpan'])) {
 		$jumlah= $_POST['jumlah'];
 		$satuan= $_POST['satuan'];
 		if(!ISSET($get_kode_barang)){
-			$sql = $koneksi->query("insert into gudang (kode_barang, jenis_gudang, nama_barang, jenis_barang, jumlah, satuan, id_user ) values('$kode_barang', '$jenis_gudang', '$nama_barang','$jenis_barang','$jumlah','$satuan', '$id_user')");
+			$sql = $koneksi->query("insert into barang (kode_barang, jenis_gudang, nama_barang, jenis_barang, jumlah, satuan, id_user ) values('$kode_barang', '$jenis_gudang', '$nama_barang','$jenis_barang','$jumlah','$satuan', '$id_user')");
 			if ($sql) {
 				?>
 				
@@ -145,7 +145,7 @@ if (isset($_POST['simpan'])) {
 			}
 		}
 		else{
-			$sql = $koneksi->query("update gudang set jenis_gudang = '$jenis_gudang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang', jumlah = $jumlah, satuan = '$satuan', id_user = '$id_user' where kode_barang = '$kode_barang' ");
+			$sql = $koneksi->query("update barang set jenis_gudang = '$jenis_gudang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang', jumlah = $jumlah, satuan = '$satuan', id_user = '$id_user' where kode_barang = '$kode_barang' ");
 			if ($sql) {?>
 				<script type="text/javascript">
 					alert("Data Berhasil Disimpan");

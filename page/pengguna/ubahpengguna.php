@@ -6,10 +6,6 @@
  $tampil = $sql2->fetch_assoc();
  
  $level = $tampil['level'];
-
- 
- 
- 
  ?>
  
   <div class="container-fluid">
@@ -73,10 +69,9 @@
                                <div class="form-line">
                                     <select name="level" class="form-control show-tick">
                                         <option value="">-- Pilih Level --</option>
-										 <option value="superadmin">Super Admin</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="petugas">Petugas</option>
-                     
+										<option value="superadmin" <?php if($level == "superadmin") echo 'selected'?> >Super Admin</option>
+                                        <option value="admin" <?php if($level == "admin") echo 'selected'?> >Admin</option>
+                                        <option value="petugas" <?php if($level == "petugas") echo 'selected'?> >Petugas</option>
                                     </select>
                             </div>
 							</div>
